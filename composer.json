@@ -1,0 +1,34 @@
+{
+    "name": "mako/open-api",
+    "description": "Generate OpenAPI documentation for your RESTful APIs",
+    "keywords": ["mako", "framework", "open-api"],
+    "homepage": "http://makoframework.com",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Frederic G. Østby",
+            "email": "frederic.g.ostby@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "mako\\openapi\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=7.3.0",
+        "zircote/swagger-php": "^3.1"
+    },
+    "require-dev": {
+        "mako/framework": "^7.0.0-dev",
+        "mockery/mockery": "^1.4.2",
+        "phpunit/phpunit": "^9.3"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.1-dev"
+        }
+    }
+}
