@@ -40,7 +40,7 @@ class Generate extends Command
 	protected $fileSystem;
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $description = 'Generates OpenAPI documentation.';
 
@@ -62,7 +62,7 @@ class Generate extends Command
 	}
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	public function getArguments(): array
 	{

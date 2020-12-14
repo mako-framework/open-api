@@ -18,12 +18,12 @@ use mako\openapi\console\commands\Generate;
 class OpenApiPackage extends Package
 {
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $packageName = 'mako/open-api';
 
 	/**
-	 * {@inheritdoc}
+	 * {@inheritDoc}
 	 */
 	protected $commands =
 	[
