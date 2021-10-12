@@ -13,9 +13,10 @@ use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\file\FileSystem;
 use mako\reactor\Command;
+use OpenApi\Generator;
+use OpenApi\Util;
 
 use function dirname;
-use function OpenApi\scan;
 use function strpos;
 
 /**
@@ -133,7 +134,9 @@ class Generate extends Command
 	 */
 	public function execute(bool $json = false, string $filename = 'openapi', ?array $scan = null, ?array $exclude = null, ?string $pattern = null, ?string $output = null): void
 	{
-		$openapi = scan($this->getScanPaths($scan), ['exlude' => $exclude, 'pattern' => $pattern]);
+		$finder = Util::finder($this->getScanPaths($scan), $exclude, $pattern);
+
+		$openapi = Generator::scan($finder);
 
 		$extension = $json ? 'json' : 'yaml';
 
