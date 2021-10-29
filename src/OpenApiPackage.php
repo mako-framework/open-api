@@ -12,8 +12,6 @@ use mako\openapi\console\commands\Generate;
 
 /**
  * OpenAPI package.
- *
- * @author  Frederic G. Østby
  */
 class OpenApiPackage extends Package
 {

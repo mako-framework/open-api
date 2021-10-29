@@ -21,8 +21,6 @@ use function strpos;
 
 /**
  * Command that generates OpenApi documentation.
- *
- * @author Frederic G. Østby
  */
 class Generate extends Command
 {
