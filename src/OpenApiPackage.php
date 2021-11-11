@@ -25,6 +25,6 @@ class OpenApiPackage extends Package
 	 */
 	protected $commands =
 	[
-		'open-api.generate' => Generate::class,
+		'open-api:generate' => Generate::class,
 	];
 }
