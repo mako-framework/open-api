@@ -8,7 +8,8 @@
 namespace mako\openapi;
 
 use mako\application\Package;
-use mako\openapi\console\commands\Generate;
+use mako\openapi\console\commands\GenerateRoutes;
+use mako\openapi\console\commands\GenerateSpec;
 
 /**
  * OpenAPI package.
@@ -25,6 +26,7 @@ class OpenApiPackage extends Package
 	 */
 	protected $commands =
 	[
-		'open-api:generate' => Generate::class,
+		'open-api:generate-spec'   => GenerateSpec::class,
+		'open-api:generate-routes' => GenerateRoutes::class,
 	];
 }

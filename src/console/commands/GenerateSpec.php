@@ -12,17 +12,16 @@ use mako\cli\input\arguments\Argument;
 use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\file\FileSystem;
+use mako\openapi\generators\spec\Generator as SpecGenerator;
 use mako\reactor\Command;
-use OpenApi\Generator;
-use OpenApi\Util;
 
 use function dirname;
 use function strpos;
 
 /**
- * Command that generates OpenApi documentation.
+ * Command that generates OpenApi specification file.
  */
-class Generate extends Command
+class GenerateSpec extends Command
 {
 	/**
 	 * Application instance.
@@ -41,7 +40,7 @@ class Generate extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Generates OpenAPI documentation.';
+	protected $description = 'Generates OpenAPI specification file.';
 
 	/**
 	 * Constructor.
@@ -67,7 +66,6 @@ class Generate extends Command
 	{
 		return
 		[
-			new Argument('-j|--json', 'Output documentation as JSON instead of YAML.', Argument::IS_BOOL),
 			new Argument('-f|--filename', 'The filename you want to use for the documentation (default: openapi).', Argument::IS_OPTIONAL),
 			new Argument('-s|--scan', 'The director(y|ies) you want to scan (default: app).', Argument::IS_ARRAY | Argument::IS_OPTIONAL),
 			new Argument('-e|--exclude', 'The director(y|ies) or filename(s) to exclude (as absolute or relative paths).', Argument::IS_ARRAY | Argument::IS_OPTIONAL),
@@ -86,7 +84,7 @@ class Generate extends Command
 	{
 		if(empty($paths))
 		{
-			return [$this->app->getPath()];
+			return [$this->app->getPath() . '/controllers', $this->app->getPath() . '/models'];
 		}
 
 		$root = dirname($this->app->getPath());
@@ -123,21 +121,18 @@ class Generate extends Command
 	/**
 	 * Generates the API documentation.
 	 *
-	 * @param bool        $json     Should we save the documentation as JSON?
 	 * @param string      $filename Documentation filename
 	 * @param array|null  $scan     Array of paths to scan
 	 * @param array|null  $exclude  Array of paths to exclude
 	 * @param string|null $pattern  Pattern to include
 	 * @param string|null $output   Output path
 	 */
-	public function execute(bool $json = false, string $filename = 'openapi', ?array $scan = null, ?array $exclude = null, ?string $pattern = null, ?string $output = null): void
+	public function execute(string $filename = 'openapi', ?array $scan = null, ?array $exclude = null, ?string $pattern = null, ?string $output = null): void
 	{
-		$finder = Util::finder($this->getScanPaths($scan), $exclude, $pattern);
+		$output = "{$this->getOutputPath($output)}/{$filename}.yml";
 
-		$openapi = Generator::scan($finder);
+		(new SpecGenerator($this->fileSystem, $output, $this->getScanPaths($scan), $exclude, $pattern))->generate();
 
-		$extension = $json ? 'json' : 'yaml';
-
-		$this->fileSystem->put("{$this->getOutputPath($output)}/{$filename}.{$extension}", $json ? $openapi->toJson() : $openapi->toYaml());
+		$this->write("Successfully wrote OpenApi specification to [ {$output} ].");
 	}
 }
