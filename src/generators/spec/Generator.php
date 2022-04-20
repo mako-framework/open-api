@@ -78,9 +78,9 @@ class Generator
 	/**
 	 * Returns a finder instance.
 	 *
-	 * @return \Symfony\Component\Finder\Finder|null
+	 * @return \Symfony\Component\Finder\Finder
 	 */
-	protected function getFinder(): ?Finder
+	protected function getFinder(): Finder
 	{
 		return Util::finder($this->directory, $this->exclude, $this->pattern);
 	}
