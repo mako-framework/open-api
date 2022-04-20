@@ -17,8 +17,8 @@
     },
     "require": {
         "php": ">=7.4.0",
-        "zircote/swagger-php": "^4.2",
-        "cebe/php-openapi": "^1.6"
+        "zircote/swagger-php": "^4.3",
+        "cebe/php-openapi": "^1.7"
     },
     "require-dev": {
         "mako/framework": "^8.0.0-dev"
