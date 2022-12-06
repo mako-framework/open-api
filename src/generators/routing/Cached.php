@@ -9,6 +9,8 @@ namespace mako\openapi\generators\routing;
 
 use mako\file\FileSystem;
 
+use function var_export;
+
 /**
  * Cached route generator.
  */
