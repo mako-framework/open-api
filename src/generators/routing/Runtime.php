@@ -37,6 +37,6 @@ class Runtime extends Generator
 	 */
 	protected function registerRoute(string $method, string $path, array|Closure|string $action, string $name): void
 	{
-		$this->routes->{$method}($path, $action);
+		$this->routes->{$method}($path, $action, $name);
 	}
 }

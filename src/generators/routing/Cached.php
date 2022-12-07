@@ -49,7 +49,7 @@ class Cached extends Generator
 		$action = var_export($action, true);
 
 		$this->outputFile->fwrite(<<<PHP
-		\$routes->{$method}('$path', $action, $name);
+		\$routes->{$method}('$path', $action, '$name');
 
 
 		PHP);
