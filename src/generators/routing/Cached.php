@@ -7,6 +7,7 @@
 
 namespace mako\openapi\generators\routing;
 
+use Closure;
 use mako\file\FileSystem;
 
 use function var_export;
@@ -43,12 +44,12 @@ class Cached extends Generator
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function registerRoute(string $method, string $path, $action): void
+	protected function registerRoute(string $method, string $path, array|Closure|string $action, string $name): void
 	{
 		$action = var_export($action, true);
 
 		$this->outputFile->fwrite(<<<PHP
-		\$routes->{$method}('$path', $action);
+		\$routes->{$method}('$path', $action, $name);
 
 
 		PHP);

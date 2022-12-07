@@ -9,6 +9,7 @@ namespace mako\openapi\generators\routing;
 
 use cebe\openapi\Reader;
 use cebe\openapi\SpecObjectInterface;
+use Closure;
 
 use function explode;
 use function str_replace;
@@ -25,7 +26,7 @@ abstract class Generator
 	 * @param  string       $operationId Operation id
 	 * @return array|string
 	 */
-	protected function getRouteAction(string $operationId)
+	protected function getRouteAction(string $operationId): array|string
 	{
 		if(strpos($operationId, '::') !== false)
 		{
@@ -58,11 +59,12 @@ abstract class Generator
 	/**
 	 * Registers a route.
 	 *
-	 * @param string $method HTTP method
-	 * @param string $path   Route path
-	 * @param mixed  $action Route action
+	 * @param string                $method HTTP method
+	 * @param string                $path   Route path
+	 * @param array|\Closure|string $action Route action
+	 * @param string                $name   Route name
 	 */
-	abstract protected function registerRoute(string $method, string $path, $action): void;
+	abstract protected function registerRoute(string $method, string $path, array|Closure|string $action, string $name): void;
 
 	/**
 	 * Generates routes.
@@ -82,7 +84,8 @@ abstract class Generator
 					$this->registerRoute(
 						$method,
 						$this->getRoutePath($path, $definition->{$method}->parameters),
-						$this->getRouteAction($definition->{$method}->operationId)
+						$this->getRouteAction($definition->{$method}->operationId),
+						$definition->{$method}->operationId
 					);
 				}
 			}

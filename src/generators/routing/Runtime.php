@@ -7,6 +7,7 @@
 
 namespace mako\openapi\generators\routing;
 
+use Closure;
 use mako\http\routing\Routes;
 
 /**
@@ -34,7 +35,7 @@ class Runtime extends Generator
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function registerRoute(string $method, string $path, $action): void
+	protected function registerRoute(string $method, string $path, array|Closure|string $action, string $name): void
 	{
 		$this->routes->{$method}($path, $action);
 	}
