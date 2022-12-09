@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#Access to an undefined property cebe\\\\openapi\\\\SpecObjectInterface::\\$paths#"
+			count: 1
+			path: src/generators/routing/Generator.php

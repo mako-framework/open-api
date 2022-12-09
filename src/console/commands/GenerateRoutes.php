@@ -25,20 +25,6 @@ use function pathinfo;
  class GenerateRoutes extends Command
  {
 	/**
-	 * Application instance.
-	 *
-	 * @var \mako\application\cli\Application
-	 */
-	protected $app;
-
-	/**
-	 * FileSystem instance.
-	 *
-	 * @var \mako\file\FileSystem
-	 */
-	protected $fileSystem;
-
-	/**
 	 * {@inheritDoc}
 	 */
 	protected $description = 'Generates routes based on OpenApi specification file.';
@@ -51,13 +37,14 @@ use function pathinfo;
 	 * @param \mako\application\Application $app        Application instance
 	 * @param \mako\file\FileSystem         $fileSystem FileSystem instance
 	 */
-	public function __construct(Input $input, Output $output, Application $app, FileSystem $fileSystem)
+	public function __construct(
+		Input $input,
+		Output $output,
+		protected Application $app,
+		protected FileSystem $fileSystem
+	)
 	{
 		parent::__construct($input, $output);
-
-		$this->app = $app;
-
-		$this->fileSystem = $fileSystem;
 	}
 
 	/**

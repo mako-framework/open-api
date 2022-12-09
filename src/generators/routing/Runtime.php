@@ -16,21 +16,14 @@ use mako\http\routing\Routes;
 class Runtime extends Generator
 {
 	/**
-	 * Route collection.
-	 *
-	 * @var \mako\http\routing\Routes
-	 */
-	protected $routes;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\http\routing\Routes $routes Route collection
 	 */
-	public function __construct(Routes $routes)
-	{
-		$this->routes = $routes;
-	}
+	public function __construct(
+		protected Routes $routes
+	)
+	{}
 
 	/**
 	 * {@inheritDoc}

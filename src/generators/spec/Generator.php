@@ -19,41 +19,6 @@ use Symfony\Component\Finder\Finder;
 class Generator
 {
 	/**
-	 * File system instance.
-	 *
-	 * @var \mako\file\FileSystem
-	 */
-	protected $fileSystem;
-
-	/**
-	 * Path to the output file.
-	 *
-	 * @var string
-	 */
-	protected $outputFile;
-
-	/**
-	 * Director(y|ies) or file(s) to scan.
-	 *
-	 * @var array|string
-	 */
-	protected $directory;
-
-	/**
-	 * Director(y|ies) or file(s) to exclude.
-	 *
-	 * @var array|string|null
-	 */
-	protected $exclude;
-
-	/**
-	 * Pattern of the files to scan.
-	 *
-	 * @var string|null
-	 */
-	protected $pattern;
-
-	/**
 	 * Constructor.
 	 *
 	 * @param \mako\file\FileSystem $fileSystem File system instance
@@ -62,18 +27,14 @@ class Generator
 	 * @param array|string|null     $exclude    Director(y|ies) or file(s) to exclude
 	 * @param string|null           $pattern    Pattern of the files to scan
 	 */
-	public function __construct(FileSystem $fileSystem, string $outputFile, $directory, $exclude = null, ?string $pattern = null)
-	{
-		$this->fileSystem = $fileSystem;
-
-		$this->outputFile = $outputFile;
-
-		$this->directory = $directory;
-
-		$this->exclude = $exclude;
-
-		$this->pattern = $pattern;
-	}
+	public function __construct(
+		protected FileSystem $fileSystem,
+		protected string $outputFile,
+		protected $directory,
+		protected $exclude = null,
+		protected ?string $pattern = null
+	)
+	{}
 
 	/**
 	 * Returns a finder instance.

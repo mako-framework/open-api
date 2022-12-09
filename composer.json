@@ -21,7 +21,8 @@
         "cebe/php-openapi": "^1.7"
     },
     "require-dev": {
-        "mako/framework": "^9.0.0-dev"
+        "mako/framework": "^9.0.0-dev",
+        "phpstan/phpstan": "^1.4.5"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
