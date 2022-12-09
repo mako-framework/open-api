@@ -46,7 +46,7 @@ else
 
 You can build an OpenApi specification using a tool like [Apicurito](https://www.apicur.io/apicurito/pwa/) or by documenting your code using attributes or docblock annotations. To check out the syntax head over to the [zircote/swagger-php](https://github.com/zircote/swagger-php) documentation.
 
-If you want to generate a specification file based on your documentation then you can do so by running the `open-api:generate-spec`.
+If you want to generate a specification file based on your documentation then you can do so by running the `open-api:generate-spec` command.
 
 To generate a cached route file for production then you'll have to run the `open-api:generate-routes` command.
 
