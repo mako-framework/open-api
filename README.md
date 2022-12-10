@@ -2,7 +2,7 @@
 
 [![Static analysis](https://github.com/mako-framework/open-api/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/mako-framework/open-api/actions/workflows/static-analysis.yml)
 
-The `mako/open-api` package allows you to generate a [OpenApi](https://www.openapis.org) specification using [attributes](https://www.php.net/manual/en/language.attributes.php) (PHP 8.0+) or docblock annotations and to generate routes based on the specification.
+The `mako/open-api` package allows you to generate a [OpenApi](https://www.openapis.org) specification using [attributes](https://www.php.net/manual/en/language.attributes.php) or docblock annotations and to generate routes based on the specification.
 
 ## Requirements
 
