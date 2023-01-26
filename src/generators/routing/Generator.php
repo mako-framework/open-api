@@ -83,7 +83,7 @@ abstract class Generator
 				{
 					$this->registerRoute(
 						$method,
-						$this->getRoutePath($path, $definition->{$method}->parameters),
+						$this->getRoutePath($path, $definition->parameters),
 						$this->getRouteAction($definition->{$method}->operationId),
 						$definition->{$method}->operationId
 					);
