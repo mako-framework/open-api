@@ -1,3 +1,12 @@
+### 1.2.0 <small>(2023-01-26)</small>
+
+#### New
+
+* Added `no-dot` path parameter pattern.
+* Added possibility of defining custom regex based path parameter patterns.
+
+--------------------------------------------------------
+
 ### 1.1.1 <small>(2023-01-26)</small>
 
 #### Fixed
