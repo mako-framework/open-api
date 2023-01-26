@@ -81,7 +81,7 @@ abstract class Generator
 
 		foreach($parameters as $parameter)
 		{
-			if($parameter->schema->format !== null && isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format]))
+			if($parameter->in === 'path' && $parameter->schema->format !== null && isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format]))
 			{
 				$patterns[$parameter->name] = $this->parameterPatterns[$parameter->schema->type][$parameter->schema->format];
 			}

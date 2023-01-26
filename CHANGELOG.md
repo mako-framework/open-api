@@ -1,3 +1,11 @@
+### 1.1.1 <small>(2023-01-25)</small>
+
+#### Fixed
+
+* Only base route parameter patterns on path parameters.
+
+--------------------------------------------------------
+
 ### 1.1.0 <small>(2023-01-25)</small>
 
 #### New
