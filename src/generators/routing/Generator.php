@@ -13,6 +13,7 @@ use Closure;
 
 use function explode;
 use function str_replace;
+use function str_starts_with;
 use function strpos;
 
 /**
