@@ -29,8 +29,8 @@ abstract class Generator
 	[
 		'string' =>
 		[
-			'uuid'   => '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}',
 			'no-dot' => '[^/.]++',
+			'uuid'   => '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}',
 		],
 	];
 
@@ -82,9 +82,18 @@ abstract class Generator
 
 		foreach($parameters as $parameter)
 		{
-			if($parameter->in === 'path' && $parameter->schema->format !== null && isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format]))
+			if($parameter->in === 'path' && $parameter->schema->format !== null)
 			{
-				$patterns[$parameter->name] = $this->parameterPatterns[$parameter->schema->type][$parameter->schema->format];
+				if(isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format]))
+				{
+					$patterns[$parameter->name] = $this->parameterPatterns[$parameter->schema->type][$parameter->schema->format];
+				}
+				elseif(str_starts_with($parameter->schema->format, 'regex:'))
+				{
+					[, $regex] = explode(':', $parameter->schema->format);
+
+					$patterns[$parameter->name] = $regex;
+				}
 			}
 		}
 
