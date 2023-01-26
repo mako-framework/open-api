@@ -28,8 +28,14 @@ class Runtime extends Generator
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function registerRoute(string $method, string $path, array|Closure|string $action, string $name): void
+	protected function registerRoute(string $method, string $path, array|Closure|string $action, string $name, array $patterns): void
 	{
-		$this->routes->{$method}($path, $action, $name);
+		/** @var \mako\http\routing\Route $route */
+		$route = $this->routes->{$method}($path, $action, $name);
+
+		if(!empty($patterns))
+		{
+			$route->patterns($patterns);
+		}
 	}
 }

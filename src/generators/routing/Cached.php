@@ -44,12 +44,21 @@ class Cached extends Generator
 	/**
 	 * {@inheritDoc}
 	 */
-	protected function registerRoute(string $method, string $path, array|Closure|string $action, string $name): void
+	protected function registerRoute(string $method, string $path, array|Closure|string $action, string $name, array $patterns): void
 	{
 		$action = var_export($action, true);
 
+		$registerPatterns = '';
+
+		if(!empty($patterns))
+		{
+			$patterns = var_export($patterns, true);
+
+			$registerPatterns = "->patterns({$patterns})";
+		}
+
 		$this->outputFile->fwrite(<<<PHP
-		\$routes->{$method}('$path', $action, '$name');
+		\$routes->{$method}('$path', $action, '$name'){$registerPatterns};
 
 
 		PHP);

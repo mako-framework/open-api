@@ -21,6 +21,19 @@ use function strpos;
 abstract class Generator
 {
 	/**
+	 * Parameter patterns.
+	 *
+	 * @var string[][]
+	 */
+	protected $parameterPatterns =
+	[
+		'string' =>
+		[
+			'uuid' => '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}',
+		],
+	];
+
+	/**
 	 * Returns the route action.
 	 *
 	 * @param  string       $operationId Operation id
@@ -57,14 +70,36 @@ abstract class Generator
 	}
 
 	/**
+	 * Returns route parameter patterns.
+	 *
+	 * @param  \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $parameters Route parameters
+	 * @return array
+	 */
+	protected function getRoutePatterns(array $parameters): array
+	{
+		$patterns = [];
+
+		foreach($parameters as $parameter)
+		{
+			if($parameter->schema->format !== null && isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format]))
+			{
+				$patterns[$parameter->name] = $this->parameterPatterns[$parameter->schema->type][$parameter->schema->format];
+			}
+		}
+
+		return $patterns;
+	}
+
+	/**
 	 * Registers a route.
 	 *
-	 * @param string                $method HTTP method
-	 * @param string                $path   Route path
-	 * @param array|\Closure|string $action Route action
-	 * @param string                $name   Route name
+	 * @param string                $method   HTTP method
+	 * @param string                $path     Route path
+	 * @param array|\Closure|string $action   Route action
+	 * @param string                $name     Route name
+	 * @param array                 $patterns Parameter patterns
 	 */
-	abstract protected function registerRoute(string $method, string $path, array|Closure|string $action, string $name): void;
+	abstract protected function registerRoute(string $method, string $path, array|Closure|string $action, string $name, array $patterns): void;
 
 	/**
 	 * Generates routes.
@@ -85,7 +120,8 @@ abstract class Generator
 						$method,
 						$this->getRoutePath($path, $definition->parameters),
 						$this->getRouteAction($definition->{$method}->operationId),
-						$definition->{$method}->operationId
+						$definition->{$method}->operationId,
+						$this->getRoutePatterns($definition->parameters),
 					);
 				}
 			}
