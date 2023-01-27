@@ -1,3 +1,11 @@
+### 1.2.1 <small>(2023-01-27)</small>
+
+#### Fixed
+
+* The `OpenApiTrait::getRouteName()` method now supports invokable classes.
+
+--------------------------------------------------------
+
 ### 1.2.0 <small>(2023-01-26)</small>
 
 #### New
