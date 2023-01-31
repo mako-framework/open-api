@@ -28,12 +28,43 @@ abstract class Generator
 	 */
 	protected $parameterPatterns =
 	[
+		// String formats
+
 		'string' =>
 		[
 			'no-dot' => '[^/.]++',
 			'uuid'   => '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}',
 		],
+
+		// Integer formats
+
+		'integer' =>
+		[
+			'auto-increment' => '[1-9][0-9]{0,}',
+		],
 	];
+
+	/**
+	 * Merges path and operation parameters.
+	 *
+	 * @param  \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $pathParameters
+	 * @param  \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $operationParameters
+	 * @return array
+	 */
+	public function mergeParameters(array $pathParameters, array $operationParameters): array
+	{
+		$merged = [];
+
+		foreach([$pathParameters, $operationParameters] as $parameters)
+		{
+			foreach($parameters as $parameter)
+			{
+				$merged[$parameter->name] = $parameter;
+			}
+		}
+
+		return $merged;
+	}
 
 	/**
 	 * Returns the route action.
@@ -127,12 +158,14 @@ abstract class Generator
 			{
 				if($definition->{$method} !== null)
 				{
+					$parameters = $this->mergeParameters($definition->parameters, $definition->{$method}->parameters);
+
 					$this->registerRoute(
 						$method,
-						$this->getRoutePath($path, $definition->parameters),
+						$this->getRoutePath($path, $parameters),
 						$this->getRouteAction($definition->{$method}->operationId),
 						$definition->{$method}->operationId,
-						$this->getRoutePatterns($definition->parameters),
+						$this->getRoutePatterns($parameters),
 					);
 				}
 			}

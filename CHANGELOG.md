@@ -1,3 +1,11 @@
+### 1.2.2 <small>(2023-01-31)</small>
+
+#### Fixed
+
+* Parameters are now supported on both the path level and the operation level.
+
+--------------------------------------------------------
+
 ### 1.2.1 <small>(2023-01-27)</small>
 
 #### Fixed
