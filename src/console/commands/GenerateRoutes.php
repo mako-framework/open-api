@@ -55,6 +55,7 @@ use function pathinfo;
 		return
 		[
 			new Argument('-i|--input', 'The path to the OpenApi specification file you want to generate routes from.', Argument::IS_OPTIONAL),
+			new Argument('-o|--output', 'The path to where you want to store the generated route file.', Argument::IS_OPTIONAL),
 		];
 	}
 
@@ -72,10 +73,11 @@ use function pathinfo;
 	/**
 	 * Generates routes.
 	 *
-	 * @param  string|null $input The path to the OpenApi file you want to generate routes from
+	 * @param  string|null $input  The path to the OpenApi file you want to generate routes from
+	 * @param  string|null $output The path to where you want to store the generated route file
 	 * @return int
 	 */
-	public function execute(?string $input = null): int
+	public function execute(?string $input = null, ?string $output = null): int
 	{
 		$input = $this->getInputFilePath($input);
 
@@ -86,7 +88,16 @@ use function pathinfo;
 			return static::STATUS_ERROR;
 		}
 
-		$routesFile = "{$this->app->getPath()}/routing/" . pathinfo($input, PATHINFO_FILENAME) . '.php';
+		if($output === null)
+		{
+			$path = "{$this->app->getPath()}/routing";
+		}
+		else
+		{
+			$path = rtrim($output, '/\\');
+		}
+
+		$routesFile = "{$path}/" . pathinfo($input, PATHINFO_FILENAME) . '.php';
 
 		(new Cached($this->fileSystem, $routesFile))->generateFromYamlFile($input);
 

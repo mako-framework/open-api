@@ -1,3 +1,11 @@
+### 1.2.3 <small>(2023-02-15)</small>
+
+#### Fixed
+
+* It is now possible to specify the output path of the generated route file.
+
+--------------------------------------------------------
+
 ### 1.2.2 <small>(2023-01-31)</small>
 
 #### Fixed
