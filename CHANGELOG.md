@@ -1,3 +1,11 @@
+### 1.2.4 <small>(2023-04-18)</small>
+
+#### Fixed
+
+* A format is no longer required for integers.
+
+--------------------------------------------------------
+
 ### 1.2.3 <small>(2023-02-15)</small>
 
 #### Fixed

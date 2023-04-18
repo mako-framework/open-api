@@ -40,6 +40,7 @@ abstract class Generator
 
 		'integer' =>
 		[
+			'_'              => '[0-9]+',
 			'auto-increment' => '[1-9][0-9]{0,}',
 		],
 	];
@@ -114,13 +115,13 @@ abstract class Generator
 
 		foreach($parameters as $parameter)
 		{
-			if($parameter->in === 'path' && $parameter->schema->format !== null)
+			if($parameter->in === 'path')
 			{
-				if(isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format]))
+				if(isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_']))
 				{
-					$patterns[$parameter->name] = $this->parameterPatterns[$parameter->schema->type][$parameter->schema->format];
+					$patterns[$parameter->name] = $this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_'];
 				}
-				elseif(str_starts_with($parameter->schema->format, 'regex:'))
+				elseif($parameter->schema->format !== null && str_starts_with($parameter->schema->format, 'regex:'))
 				{
 					[, $regex] = explode(':', $parameter->schema->format);
 
