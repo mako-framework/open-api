@@ -40,7 +40,7 @@ abstract class Generator
 
 		'integer' =>
 		[
-			'_'              => '[0-9]+',
+			'_'              => '-?[0-9]+',
 			'auto-increment' => '[1-9][0-9]{0,}',
 		],
 	];
