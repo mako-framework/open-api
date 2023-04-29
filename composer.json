@@ -1,6 +1,6 @@
 {
     "name": "mako/open-api",
-    "description": "Generate OpenAPI documentation for your RESTful APIs",
+    "description": "Generate routes based on OpenAPI specifications and OpenAPI specifications from code",
     "keywords": ["mako", "framework", "open-api"],
     "homepage": "http://makoframework.com",
     "license": "BSD-3-Clause",
