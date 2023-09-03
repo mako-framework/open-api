@@ -17,8 +17,6 @@ class Runtime extends Generator
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\http\routing\Routes $routes Route collection
 	 */
 	public function __construct(
 		protected Routes $routes

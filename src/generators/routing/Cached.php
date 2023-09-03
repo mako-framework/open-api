@@ -9,6 +9,7 @@ namespace mako\openapi\generators\routing;
 
 use Closure;
 use mako\file\FileSystem;
+use SplFileObject;
 
 use function var_export;
 
@@ -19,16 +20,11 @@ class Cached extends Generator
 {
 	/**
 	 * Output file.
-	 *
-	 * @var \SplFileObject
 	 */
-	protected $outputFile;
+	protected SplFileObject $outputFile;
 
 	/**
 	 * Constructor. File system instance.
-	 *
-	 * @param \mako\file\FileSystem $fileSystem File system instance
-	 * @param string                $outputFile Output file
 	 */
 	public function __construct(FileSystem $fileSystem, string $outputFile)
 	{

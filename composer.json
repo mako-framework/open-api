@@ -16,19 +16,19 @@
         }
     },
     "require": {
-        "php": ">=8.0.0",
+        "php": ">=8.1.0",
         "zircote/swagger-php": "^4.5",
         "cebe/php-openapi": "^1.7"
     },
     "require-dev": {
-        "mako/framework": "^9.0.0-dev",
+        "mako/framework": "^10.0.0-dev",
         "phpstan/phpstan": "^1.4.5"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {
         "branch-alias": {
-            "dev-master": "1.2-dev"
+            "dev-master": "2.0-dev"
         }
     }
 }

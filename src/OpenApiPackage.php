@@ -19,12 +19,12 @@ class OpenApiPackage extends Package
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $packageName = 'mako/open-api';
+	protected string $packageName = 'mako/open-api';
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $commands =
+	protected array $commands =
 	[
 		'open-api:generate-spec'   => GenerateSpec::class,
 		'open-api:generate-routes' => GenerateRoutes::class,

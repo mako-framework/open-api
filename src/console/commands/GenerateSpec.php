@@ -26,15 +26,10 @@ class GenerateSpec extends Command
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Generates OpenAPI specification file.';
+	protected string $description = 'Generates OpenAPI specification file.';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\input\Input         $input      Input
-	 * @param \mako\cli\output\Output       $output     Output
-	 * @param \mako\application\Application $app        Application instance
-	 * @param \mako\file\FileSystem         $fileSystem FileSystem instance
 	 */
 	public function __construct(
 		Input $input,
@@ -63,9 +58,6 @@ class GenerateSpec extends Command
 
 	/**
 	 * Returns the paths to scan.
-	 *
-	 * @param  array|null $paths Array of paths to scan
-	 * @return array
 	 */
 	protected function getScanPaths(?array $paths): array
 	{
@@ -89,9 +81,6 @@ class GenerateSpec extends Command
 
 	/**
 	 * Returns the output path.
-	 *
-	 * @param  string|null $path Output path
-	 * @return string
 	 */
 	protected function getOutputPath(?string $path): string
 	{
@@ -107,12 +96,6 @@ class GenerateSpec extends Command
 
 	/**
 	 * Generates the API documentation.
-	 *
-	 * @param string      $filename Documentation filename
-	 * @param array|null  $scan     Array of paths to scan
-	 * @param array|null  $exclude  Array of paths to exclude
-	 * @param string|null $pattern  Pattern to include
-	 * @param string|null $output   Output path
 	 */
 	public function execute(string $filename = 'openapi', ?array $scan = null, ?array $exclude = null, ?string $pattern = null, ?string $output = null): void
 	{

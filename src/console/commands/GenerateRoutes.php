@@ -27,15 +27,10 @@ use function pathinfo;
 	/**
 	 * {@inheritDoc}
 	 */
-	protected $description = 'Generates routes based on OpenApi specification file.';
+	protected string $description = 'Generates routes based on OpenApi specification file.';
 
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\cli\input\Input         $input      Input
-	 * @param \mako\cli\output\Output       $output     Output
-	 * @param \mako\application\Application $app        Application instance
-	 * @param \mako\file\FileSystem         $fileSystem FileSystem instance
 	 */
 	public function __construct(
 		Input $input,
@@ -61,9 +56,6 @@ use function pathinfo;
 
 	/**
 	 * Returns path to the input file.
-	 *
-	 * @param  string|null $input The path to the OpenApi file you want to generate routes from
-	 * @return string
 	 */
 	protected function getInputFilePath(?string $input): string
 	{
@@ -72,10 +64,6 @@ use function pathinfo;
 
 	/**
 	 * Generates routes.
-	 *
-	 * @param  string|null $input  The path to the OpenApi file you want to generate routes from
-	 * @param  string|null $output The path to where you want to store the generated route file
-	 * @return int
 	 */
 	public function execute(?string $input = null, ?string $output = null): int
 	{

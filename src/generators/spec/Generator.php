@@ -20,12 +20,6 @@ class Generator
 {
 	/**
 	 * Constructor.
-	 *
-	 * @param \mako\file\FileSystem $fileSystem File system instance
-	 * @param string                $outputFile Path to the output file
-	 * @param array|string          $directory  Director(y|ies) or file(s) to scan
-	 * @param array|string|null     $exclude    Director(y|ies) or file(s) to exclude
-	 * @param string|null           $pattern    Pattern of the files to scan
 	 */
 	public function __construct(
 		protected FileSystem $fileSystem,
@@ -38,8 +32,6 @@ class Generator
 
 	/**
 	 * Returns a finder instance.
-	 *
-	 * @return \Symfony\Component\Finder\Finder
 	 */
 	protected function getFinder(): Finder
 	{
@@ -48,8 +40,6 @@ class Generator
 
 	/**
 	 * Returns a OpenApi spec genrator.
-	 *
-	 * @return \OpenApi\Annotations\OpenApi|null
 	 */
 	protected function getGenerator(): ?OpenApi
 	{

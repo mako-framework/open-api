@@ -26,7 +26,7 @@ abstract class Generator
 	 *
 	 * @var string[][]
 	 */
-	protected $parameterPatterns =
+	protected array $parameterPatterns =
 	[
 		// String formats
 
@@ -48,9 +48,8 @@ abstract class Generator
 	/**
 	 * Merges path and operation parameters.
 	 *
-	 * @param  \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $pathParameters
-	 * @param  \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $operationParameters
-	 * @return array
+	 * @param \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $pathParameters
+	 * @param \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $operationParameters
 	 */
 	public function mergeParameters(array $pathParameters, array $operationParameters): array
 	{
@@ -69,9 +68,6 @@ abstract class Generator
 
 	/**
 	 * Returns the route action.
-	 *
-	 * @param  string       $operationId Operation id
-	 * @return array|string
 	 */
 	protected function getRouteAction(string $operationId): array|string
 	{
@@ -86,9 +82,8 @@ abstract class Generator
 	/**
 	 * Returns the route path.
 	 *
-	 * @param  string                                                        $path       Route path
-	 * @param  \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $parameters Route parameters
-	 * @return string
+	 * @param string                                                        $path
+	 * @param \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $parameters
 	 */
 	protected function getRoutePath(string $path, array $parameters): string
 	{
@@ -106,8 +101,7 @@ abstract class Generator
 	/**
 	 * Returns route parameter patterns.
 	 *
-	 * @param  \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $parameters Route parameters
-	 * @return array
+	 * @param \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $parameters
 	 */
 	protected function getRoutePatterns(array $parameters): array
 	{
@@ -135,12 +129,6 @@ abstract class Generator
 
 	/**
 	 * Registers a route.
-	 *
-	 * @param string                $method   HTTP method
-	 * @param string                $path     Route path
-	 * @param array|\Closure|string $action   Route action
-	 * @param string                $name     Route name
-	 * @param array                 $patterns Parameter patterns
 	 */
 	abstract protected function registerRoute(string $method, string $path, array|Closure|string $action, string $name, array $patterns): void;
 
@@ -175,8 +163,6 @@ abstract class Generator
 
 	/**
 	 * Generates routes from a yaml file.
-	 *
-	 * @param string $fileName Path to OpenApi file
 	 */
 	public function generateFromYamlFile(string $fileName): void
 	{
@@ -185,8 +171,6 @@ abstract class Generator
 
 	/**
 	 * Generates routes from a yaml string.
-	 *
-	 * @param string $yaml Yaml string
 	 */
 	public function generateFromYaml(string $yaml): void
 	{

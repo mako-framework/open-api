@@ -14,10 +14,6 @@ trait OpenApiTrait
 {
     /**
      * Returns the route name.
-     *
-     * @param  string      $class  Fully qualified class name
-     * @param  string|null $method Method name
-     * @return string
      */
     protected function getRouteName(string $class, ?string $method = null): string
     {
