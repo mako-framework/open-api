@@ -30,16 +30,14 @@ abstract class Generator
 	[
 		// String formats
 
-		'string' =>
-		[
+		'string' => [
 			'no-dot' => '[^/.]++',
 			'uuid'   => '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}',
 		],
 
 		// Integer formats
 
-		'integer' =>
-		[
+		'integer' => [
 			'_'              => '-?[0-9]+',
 			'auto-increment' => '[1-9][0-9]{0,}',
 		],
@@ -55,10 +53,8 @@ abstract class Generator
 	{
 		$merged = [];
 
-		foreach([$pathParameters, $operationParameters] as $parameters)
-		{
-			foreach($parameters as $parameter)
-			{
+		foreach ([$pathParameters, $operationParameters] as $parameters) {
+			foreach ($parameters as $parameter) {
 				$merged[$parameter->name] = $parameter;
 			}
 		}
@@ -71,8 +67,7 @@ abstract class Generator
 	 */
 	protected function getRouteAction(string $operationId): array|string
 	{
-		if(strpos($operationId, '::') !== false)
-		{
+		if (strpos($operationId, '::') !== false) {
 			return explode('::', $operationId, 2);
 		}
 
@@ -87,10 +82,8 @@ abstract class Generator
 	 */
 	protected function getRoutePath(string $path, array $parameters): string
 	{
-		foreach($parameters as $parameter)
-		{
-			if($parameter->in === 'path' && $parameter->required === false)
-			{
+		foreach ($parameters as $parameter) {
+			if ($parameter->in === 'path' && $parameter->required === false) {
 				$path = str_replace("{{$parameter->name}}", "{{$parameter->name}}?", $path);
 			}
 		}
@@ -107,16 +100,12 @@ abstract class Generator
 	{
 		$patterns = [];
 
-		foreach($parameters as $parameter)
-		{
-			if($parameter->in === 'path')
-			{
-				if(isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_']))
-				{
+		foreach ($parameters as $parameter) {
+			if ($parameter->in === 'path') {
+				if (isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_'])) {
 					$patterns[$parameter->name] = $this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_'];
 				}
-				elseif($parameter->schema->format !== null && str_starts_with($parameter->schema->format, 'regex:'))
-				{
+				elseif ($parameter->schema->format !== null && str_starts_with($parameter->schema->format, 'regex:')) {
 					[, $regex] = explode(':', $parameter->schema->format);
 
 					$patterns[$parameter->name] = $regex;
@@ -141,12 +130,9 @@ abstract class Generator
 	{
 		$methods = ['get', 'post', 'put', 'patch', 'delete'];
 
-		foreach($openApi->paths as $path => $definition)
-		{
-			foreach($methods as $method)
-			{
-				if($definition->{$method} !== null)
-				{
+		foreach ($openApi->paths as $path => $definition) {
+			foreach ($methods as $method) {
+				if ($definition->{$method} !== null) {
 					$parameters = $this->mergeParameters($definition->parameters, $definition->{$method}->parameters);
 
 					$this->registerRoute(

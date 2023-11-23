@@ -46,8 +46,7 @@ class Cached extends Generator
 
 		$registerPatterns = '';
 
-		if(!empty($patterns))
-		{
+		if (!empty($patterns)) {
 			$patterns = var_export($patterns, true);
 
 			$registerPatterns = "->patterns({$patterns})";

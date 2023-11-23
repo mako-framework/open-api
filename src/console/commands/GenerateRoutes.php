@@ -37,8 +37,7 @@ use function pathinfo;
 		Output $output,
 		protected Application $app,
 		protected FileSystem $fileSystem
-	)
-	{
+	) {
 		parent::__construct($input, $output);
 	}
 
@@ -47,8 +46,7 @@ use function pathinfo;
 	 */
 	public function getArguments(): array
 	{
-		return
-		[
+		return [
 			new Argument('-i|--input', 'The path to the OpenApi specification file you want to generate routes from.', Argument::IS_OPTIONAL),
 			new Argument('-o|--output', 'The path to where you want to store the generated route file.', Argument::IS_OPTIONAL),
 		];
@@ -69,19 +67,16 @@ use function pathinfo;
 	{
 		$input = $this->getInputFilePath($input);
 
-		if(!$this->fileSystem->has($input))
-		{
+		if (!$this->fileSystem->has($input)) {
 			$this->error("The [ {$input} ] specification file does not exist.");
 
 			return static::STATUS_ERROR;
 		}
 
-		if($output === null)
-		{
+		if ($output === null) {
 			$path = "{$this->app->getPath()}/routing";
 		}
-		else
-		{
+		else {
 			$path = rtrim($output, '/\\');
 		}
 

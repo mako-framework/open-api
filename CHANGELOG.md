@@ -1,3 +1,23 @@
+### 2.1.0 <small>(2023-11-23)</small>
+
+#### New
+
+* Now possible to specify the OpenApi version when generating the spec (3.0.0 or 3.1.0).
+
+#### Fixed
+
+* The spec generator now supports the new Mako 10 directory structure as well as the legacy structure.
+
+--------------------------------------------------------
+
+### 2.0.0 <small>(2023-11-23)</small>
+
+#### Changes
+
+* Bumped requirements to Mako 10+ and PHP 8.1+
+
+--------------------------------------------------------
+
 ### 1.2.4 <small>(2023-04-18)</small>
 
 #### Fixed

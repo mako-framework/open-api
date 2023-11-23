@@ -26,9 +26,10 @@ class Generator
 		protected string $outputFile,
 		protected $directory,
 		protected $exclude = null,
-		protected ?string $pattern = null
-	)
-	{}
+		protected ?string $pattern = null,
+		protected string $version = OpenApi::DEFAULT_VERSION
+	) {
+	}
 
 	/**
 	 * Returns a finder instance.
@@ -43,7 +44,7 @@ class Generator
 	 */
 	protected function getGenerator(): ?OpenApi
 	{
-		return OpenApiGenerator::scan($this->getFinder(), ['version' => OpenApi::DEFAULT_VERSION]);
+		return OpenApiGenerator::scan($this->getFinder(), ['version' => $this->version]);
 	}
 
 	/**

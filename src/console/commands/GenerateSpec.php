@@ -14,6 +14,7 @@ use mako\cli\output\Output;
 use mako\file\FileSystem;
 use mako\openapi\generators\spec\Generator as SpecGenerator;
 use mako\reactor\Command;
+use OpenApi\Annotations\OpenApi;
 
 use function dirname;
 use function strpos;
@@ -36,8 +37,7 @@ class GenerateSpec extends Command
 		Output $output,
 		protected Application $app,
 		protected FileSystem $fileSystem
-	)
-	{
+	) {
 		parent::__construct($input, $output);
 	}
 
@@ -46,13 +46,13 @@ class GenerateSpec extends Command
 	 */
 	public function getArguments(): array
 	{
-		return
-		[
+		return [
 			new Argument('-f|--filename', 'The filename you want to use for the documentation (default: openapi).', Argument::IS_OPTIONAL),
 			new Argument('-s|--scan', 'The director(y|ies) you want to scan (default: app).', Argument::IS_ARRAY | Argument::IS_OPTIONAL),
 			new Argument('-e|--exclude', 'The director(y|ies) or filename(s) to exclude (as absolute or relative paths).', Argument::IS_ARRAY | Argument::IS_OPTIONAL),
 			new Argument('-p|--pattern', 'File pattern to scan (default: *.php).', Argument::IS_OPTIONAL),
 			new Argument('-o|--output', 'The output directory where you want to save the OpenAPI documentation (default: project root).', Argument::IS_OPTIONAL),
+			new Argument('-v|--version', 'The OpenAPI version to use (default: ' . OpenApi::DEFAULT_VERSION . ').', Argument::IS_OPTIONAL),
 		];
 	}
 
@@ -61,17 +61,20 @@ class GenerateSpec extends Command
 	 */
 	protected function getScanPaths(?array $paths): array
 	{
-		if(empty($paths))
-		{
-			return [$this->app->getPath() . '/controllers', $this->app->getPath() . '/models'];
+		if (empty($paths)) {
+			if ($this->fileSystem->has("{$this->app->getPath()}/controllers")) {
+				$controllers = "{$this->app->getPath()}/controllers";
+			} else {
+				$controllers = "{$this->app->getPath()}/http/controllers";
+			}
+
+			return [$controllers, "{$this->app->getPath()}'/models"];
 		}
 
 		$root = dirname($this->app->getPath());
 
-		foreach($paths as $key => $value)
-		{
-			if(strpos($value, DIRECTORY_SEPARATOR) !== 0)
-			{
+		foreach ($paths as $key => $value) {
+			if (strpos($value, DIRECTORY_SEPARATOR) !== 0) {
 				$paths[$key] = "{$root}/{$value}";
 			}
 		}
@@ -86,8 +89,7 @@ class GenerateSpec extends Command
 	{
 		$root = dirname($this->app->getPath());
 
-		if(empty($path))
-		{
+		if (empty($path)) {
 			return $root;
 		}
 
@@ -97,11 +99,20 @@ class GenerateSpec extends Command
 	/**
 	 * Generates the API documentation.
 	 */
-	public function execute(string $filename = 'openapi', ?array $scan = null, ?array $exclude = null, ?string $pattern = null, ?string $output = null): void
+	public function execute(string $filename = 'openapi', ?array $scan = null, ?array $exclude = null, ?string $pattern = null, ?string $output = null, string $version = OpenApi::DEFAULT_VERSION): void
 	{
 		$output = "{$this->getOutputPath($output)}/{$filename}.yml";
 
-		(new SpecGenerator($this->fileSystem, $output, $this->getScanPaths($scan), $exclude, $pattern))->generate();
+		$generator = new SpecGenerator(
+			$this->fileSystem,
+			$output,
+			$this->getScanPaths($scan),
+			$exclude,
+			$pattern,
+			$version
+		);
+
+		$generator->generate();
 
 		$this->write("Successfully wrote OpenApi specification to [ {$output} ].");
 	}

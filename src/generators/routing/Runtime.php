@@ -20,8 +20,8 @@ class Runtime extends Generator
 	 */
 	public function __construct(
 		protected Routes $routes
-	)
-	{}
+	) {
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -31,8 +31,7 @@ class Runtime extends Generator
 		/** @var \mako\http\routing\Route $route */
 		$route = $this->routes->{$method}($path, $action, $name);
 
-		if(!empty($patterns))
-		{
+		if (!empty($patterns)) {
 			$route->patterns($patterns);
 		}
 	}
