@@ -17,6 +17,7 @@ use mako\reactor\Command;
 
 use function dirname;
 use function pathinfo;
+use function rtrim;
 
  /**
   * @copyright Frederic G. Østby
