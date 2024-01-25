@@ -1,3 +1,15 @@
+### 2.2.1 <small>(2023-11-23)</small>
+
+#### New
+
+* Added optional Redoc UI.
+
+#### Changes
+
+* Changed the default documentation URL to `/openapi/docs`.
+
+--------------------------------------------------------
+
 ### 2.2.0 <small>(2023-11-23)</small>
 
 #### New
