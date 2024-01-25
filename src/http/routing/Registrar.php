@@ -39,7 +39,7 @@ class Registrar
 
 			$routes->get($specPath, [Documentation::class, 'openapi'], 'mako:openapi:spec');
 
-			if ($docPath !== null) {
+			if ($docsPath !== null) {
 				$routes->get($docsPath, [Documentation::class, $ui], 'mako:openapi:docs');
 			}
 		}

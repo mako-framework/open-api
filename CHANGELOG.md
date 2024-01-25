@@ -1,36 +1,10 @@
-### 2.2.2 <small>(2023-11-23)</small>
-
-#### Changes
-
-* Renamed two arguments on the `Registrar::register()` method:
-	- `$docPath` to `$docsPath`
-	- `$docUi` to `$ui`
-
---------------------------------------------------------
-
-### 2.2.1 <small>(2023-11-23)</small>
-
-#### New
-
-* Added optional Redoc UI.
-
-#### Fixed
-
-* Swagger: Only fall back to the current application URL if servers are not defined.
-
-#### Changes
-
-* Changed the default documentation URL to `/openapi/docs`.
-
---------------------------------------------------------
-
 ### 2.2.0 <small>(2023-11-23)</small>
 
 #### New
 
 * Added a new route registrar class:
 	- Automatically registers `/openapi/spec` route that exposes the OpenApi spec.
-	- Automatically registers `/openapi/swagger` route that exposes a Swagger UI instance.
+	- Automatically registers `/openapi/docs` route that exposes a Swagger or Redoc UI.
 
 --------------------------------------------------------
 
