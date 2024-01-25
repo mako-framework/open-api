@@ -106,7 +106,7 @@ class Documentation
 							setServer: (server) => {
 								const spec = swagger.getState().toJSON().spec.json;
 								if (!spec.servers) {
-									const servers = [{url: server, description: 'Current server'}].concat(spec.servers || []);
+									const servers = [{url: server, description: 'Current server'}];
 									const newSpec = Object.assign({}, spec, { servers });
 									swagger.specActions.updateJsonSpec(newSpec);
 								}
