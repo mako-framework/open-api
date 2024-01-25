@@ -90,7 +90,7 @@ class GenerateSpec extends Command
 		$root = dirname($this->app->getPath());
 
 		if (empty($path)) {
-			return $root;
+			return "{$root}/http/routing";
 		}
 
 		return strpos($path, DIRECTORY_SEPARATOR) === 0 ? $path : "{$root}/{$path}";
