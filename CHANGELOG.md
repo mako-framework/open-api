@@ -1,3 +1,13 @@
+### 2.2.0 <small>(2023-11-23)</small>
+
+#### New
+
+* Added a new route registrar class:
+	- Automatically registers `/openapi/spec` route that exposes the OpenApi spec.
+	- Automatically registers `/openapi/swagger` route that exposes a Swagger UI instance.
+
+--------------------------------------------------------
+
 ### 2.1.0 <small>(2023-11-23)</small>
 
 #### New

@@ -75,7 +75,7 @@ use function rtrim;
 		}
 
 		if ($output === null) {
-			$path = "{$this->app->getPath()}/routing";
+			$path = "{$this->app->getPath()}/http/routing";
 		}
 		else {
 			$path = rtrim($output, '/\\');
