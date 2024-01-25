@@ -21,7 +21,7 @@ class Registrar
 	/**
 	 * Registers the routes.
 	 */
-	public static function register(Routes $routes, string $cachedRoutes, string $openApiSpec, ?string $specPath = '/openapi/spec', ?string $swaggerPath = '/openapi/swagger'): void
+	public static function register(Routes $routes, string $cachedRoutes, string $openApiSpec, ?string $specPath = '/openapi/spec', ?string $swaggerPath = '/openapi/docs', string $docType = 'swagger'): void
 	{
 		// Include the cached routes if they exist. Otherwise we'll generate them at runtime.
 
@@ -32,7 +32,7 @@ class Registrar
 			(new Runtime($routes))->generateFromYamlFile($openApiSpec);
 		}
 
-		// Register the spec and swagger routes
+		// Register the spec and documentation routes
 
 		if ($specPath !== null) {
 			Documentation::setOpenApiSpecPath($openApiSpec);
@@ -40,7 +40,7 @@ class Registrar
 			$routes->get($specPath, [Documentation::class, 'openapi'], 'mako:openapi:spec');
 
 			if ($swaggerPath !== null) {
-				$routes->get($swaggerPath, [Documentation::class, 'swagger'], 'mako:openapi:swagger');
+				$routes->get($swaggerPath, [Documentation::class, $docType], 'mako:openapi:docs');
 			}
 		}
 	}

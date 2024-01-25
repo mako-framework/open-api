@@ -57,6 +57,29 @@ class Documentation
 	}
 
 	/**
+	 * Returns the Recoc UI.
+	 */
+	public function redoc(URLBuilder $uRLBuilder): string
+	{
+		$specUrl = $uRLBuilder->toRoute('mako:openapi:spec');
+
+		return <<<HTML
+		<!DOCTYPE html>
+		<html lang="en">
+		<html>
+			<head>
+				<meta charset="UTF-8">
+				<title>OpenApi - Redoc</title>
+			</head>
+			<body>
+				<redoc spec-url="$specUrl"></redoc>
+				<script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"> </script>
+			</body>
+		</html>
+		HTML;
+	}
+
+	/**
 	 * Returns the Swagger UI.
 	 */
 	public function swagger(URLBuilder $uRLBuilder): string
@@ -70,7 +93,7 @@ class Documentation
 		<html>
 			<head>
 				<meta charset="UTF-8">
-				<title>OpenApi</title>
+				<title>OpenApi - Swagger</title>
 				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.11.0/swagger-ui.min.css">
 			</head>
 			<body>
@@ -81,10 +104,12 @@ class Documentation
 					const SetServerPlugin = (swagger) => ({
 						rootInjects: {
 							setServer: (server) => {
-								const oldSpec = swagger.getState().toJSON().spec.json;
-								const servers = [{url: server}];
-								const newSpec = Object.assign({}, oldSpec, { servers });
-								return swagger.specActions.updateJsonSpec(newSpec);
+								const spec = swagger.getState().toJSON().spec.json;
+								if (!spec.servers) {
+									const servers = [{url: server, description: 'Current server'}].concat(spec.servers || []);
+									const newSpec = Object.assign({}, spec, { servers });
+									swagger.specActions.updateJsonSpec(newSpec);
+								}
 							}
 						}
 					});
