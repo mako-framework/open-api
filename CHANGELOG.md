@@ -2,7 +2,12 @@
 
 #### New
 
+* Added a controller that exposes three endpoints:
+	- The OpenApi spec
+	- A Redoc UI
+	- A Swagger UI
 * Added a new route registrar class:
+	- Registers routes from a cache file or at runtime from the OpenApi yaml spec.
 	- Automatically registers `/openapi/spec` route that exposes the OpenApi spec.
 	- Automatically registers `/openapi/docs` route that exposes a Swagger or Redoc UI.
 
