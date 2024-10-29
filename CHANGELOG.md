@@ -1,3 +1,11 @@
+### 2.2.1 <small>(2024-10-29)</small>
+
+#### Fixed
+
+* Ensure that the swagger docs work if "clean URLs" are disabled.
+
+--------------------------------------------------------
+
 ### 2.2.0 <small>(2023-11-23)</small>
 
 #### New
