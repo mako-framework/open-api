@@ -85,7 +85,7 @@ class Documentation
 	public function swagger(URLBuilder $uRLBuilder): string
 	{
 		$specUrl = $uRLBuilder->toRoute('mako:openapi:spec');
-		$apiBaseUrl = $uRLBuilder->base();
+		$apiBaseUrl = $uRLBuilder->to('/');
 
 		return <<<HTML
 		<!DOCTYPE html>
