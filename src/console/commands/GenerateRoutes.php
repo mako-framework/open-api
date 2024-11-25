@@ -83,13 +83,7 @@ use function rtrim;
 
 		$routesFile = "{$path}/" . pathinfo($input, PATHINFO_FILENAME) . '.php';
 
-		$errorReporting = error_reporting();
-
-		error_reporting($errorReporting & ~E_DEPRECATED & ~E_USER_DEPRECATED);
-
 		(new Cached($this->fileSystem, $routesFile))->generateFromYamlFile($input);
-
-		error_reporting($errorReporting);
 
 		$this->write("Successfully wrote routes to [ {$routesFile} ].");
 
