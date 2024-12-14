@@ -22,7 +22,7 @@ class Documentation
 	/**
 	 * OpenApi specification path.
 	 */
-	protected static null|string $openApiSpecPath = null;
+	protected static ?string $openApiSpecPath = null;
 
 	/**
 	 * Sets the OpenApi specification path.

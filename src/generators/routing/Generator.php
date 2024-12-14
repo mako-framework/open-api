@@ -124,7 +124,7 @@ abstract class Generator
 	/**
 	 * Generates routes.
 	 *
-	 * @param \cebe\openapi\spec\OpenApi|\cebe\openapi\SpecObjectInterface $openApi OpenApi object instance
+	 * @param \cebe\openapi\spec\OpenApi|SpecObjectInterface $openApi OpenApi object instance
 	 */
 	protected function generateRoutes(SpecObjectInterface $openApi): void
 	{
