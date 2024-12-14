@@ -2,6 +2,5 @@ includes:
 	- phpstan-baseline.neon
 parameters:
 	level: 5
-	reportUnmatchedIgnoredErrors: false
 	ignoreErrors:
-		- '#Attribute class AllowDynamicProperties does not exist\.#'
+		- identifier: trait.unused
