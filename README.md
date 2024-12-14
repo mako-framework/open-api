@@ -6,7 +6,7 @@ The `mako/open-api` package allows you to generate a [OpenApi](https://www.opena
 
 ## Requirements
 
-Mako 10.0 or greater.
+Mako 11.0 or greater.
 
 ## Installation
 
