@@ -13,23 +13,25 @@ use mako\cli\input\Input;
 use mako\cli\output\Output;
 use mako\file\FileSystem;
 use mako\openapi\generators\routing\Cached;
+use mako\reactor\attributes\CommandArguments;
+use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 
 use function dirname;
 use function pathinfo;
 use function rtrim;
 
- /**
-  * @copyright Frederic G. Østby
-  * @license   http://www.makoframework.com/license
-  */
- class GenerateRoutes extends Command
- {
-	/**
-	 * {@inheritDoc}
-	 */
-	protected string $description = 'Generates routes based on OpenApi specification file.';
-
+/**
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
+ */
+#[CommandDescription('Generates routes based on OpenApi specification file.')]
+#[CommandArguments(
+	new Argument('-i|--input', 'The path to the OpenApi specification file you want to generate routes from.', Argument::IS_OPTIONAL),
+	new Argument('-o|--output', 'The path to where you want to store the generated route file.', Argument::IS_OPTIONAL),
+)]
+class GenerateRoutes extends Command
+{
 	/**
 	 * Constructor.
 	 */
@@ -40,17 +42,6 @@ use function rtrim;
 		protected FileSystem $fileSystem
 	) {
 		parent::__construct($input, $output);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function getArguments(): array
-	{
-		return [
-			new Argument('-i|--input', 'The path to the OpenApi specification file you want to generate routes from.', Argument::IS_OPTIONAL),
-			new Argument('-o|--output', 'The path to where you want to store the generated route file.', Argument::IS_OPTIONAL),
-		];
 	}
 
 	/**
@@ -89,4 +80,4 @@ use function rtrim;
 
 		return static::STATUS_SUCCESS;
 	}
- }
+}
