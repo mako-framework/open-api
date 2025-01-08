@@ -55,7 +55,8 @@ class GenerateSpec extends Command
 		if (empty($paths)) {
 			if ($this->fileSystem->has("{$this->app->getPath()}/controllers")) {
 				$controllers = "{$this->app->getPath()}/controllers";
-			} else {
+			}
+			else {
 				$controllers = "{$this->app->getPath()}/http/controllers";
 			}
 
