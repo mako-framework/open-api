@@ -80,6 +80,48 @@ class Documentation
 	}
 
 	/**
+	 * Returns the Elements UI.
+	 */
+	public function elements(URLBuilder $uRLBuilder): string
+	{
+		$specUrl = $uRLBuilder->toRoute('mako:openapi:spec');
+		$apiBaseUrl = $uRLBuilder->to('/');
+
+		return <<<HTML
+		<!doctype html>
+		<html lang="en">
+		<head>
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			<title>OpenApi - Elements</title>
+			<script src="https://unpkg.com/@stoplight/elements/web-components.min.js"></script>
+			<link rel="stylesheet" href="https://unpkg.com/@stoplight/elements/styles.min.css">
+		</head>
+		<body>
+			<elements-api id="docs" router="hash" layout="responsive"></elements-api>
+			<script>
+				(async () => {
+					const docs = document.getElementById('docs');
+					let text = await fetch('$specUrl').then(res => res.text())
+					if (!text.includes('servers')) {
+						try {
+							const json = JSON.parse(text);
+							text = JSON.stringify({ servers: [{ url: '$apiBaseUrl' }], ...json });
+						} catch (e) {
+							text = `servers:
+							- url: $apiBaseUrl
+							` + text;
+						}
+					}
+					docs.apiDescriptionDocument = text;
+				})();
+			</script>
+		</body>
+		</html>
+		HTML;
+	}
+
+	/**
 	 * Returns the Swagger UI.
 	 */
 	public function swagger(URLBuilder $uRLBuilder): string

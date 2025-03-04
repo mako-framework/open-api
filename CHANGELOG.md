@@ -1,3 +1,11 @@
+### 3.0.0 <small>(2025-01-03)</small>
+
+#### Changes
+
+* Bumped requirements to Mako 10+ and PHP 8.1+
+
+--------------------------------------------------------
+
 ### 2.2.1 <small>(2024-10-29)</small>
 
 #### Fixed
