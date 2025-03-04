@@ -104,14 +104,9 @@ class Documentation
 					const docs = document.getElementById('docs');
 					let text = await fetch('$specUrl').then(res => res.text())
 					if (!text.includes('servers')) {
-						try {
-							const json = JSON.parse(text);
-							text = JSON.stringify({ servers: [{ url: '$apiBaseUrl' }], ...json });
-						} catch (e) {
-							text = `servers:
-							- url: $apiBaseUrl
-							` + text;
-						}
+						text = `servers:
+						- url: $apiBaseUrl
+						` + text;
 					}
 					docs.apiDescriptionDocument = text;
 				})();
