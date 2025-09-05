@@ -21,8 +21,15 @@ class Registrar
 	/**
 	 * Registers the routes.
 	 */
-	public static function register(Routes $routes, string $cachedRoutes, string $openApiSpec, ?string $specPath = '/openapi/spec', ?string $docsPath = '/openapi/docs', string $ui = 'swagger'): void
-	{
+	public static function register(
+		Routes $routes,
+		string $cachedRoutes,
+		string $openApiSpec,
+		?string $specPath = '/openapi/spec',
+		?string $docsPath = '/openapi/docs',
+		string $ui = 'swagger',
+		string $uiOptions = '{}'
+	): void {
 		// Include the cached routes if they exist. Otherwise we'll generate them at runtime.
 
 		if (file_exists($cachedRoutes)) {
@@ -40,6 +47,8 @@ class Registrar
 			$routes->get($specPath, [Documentation::class, 'openapi'], 'mako:openapi:spec');
 
 			if ($docsPath !== null) {
+				Documentation::setUiOptions($uiOptions);
+
 				$routes->get($docsPath, [Documentation::class, $ui], 'mako:openapi:docs');
 			}
 		}
