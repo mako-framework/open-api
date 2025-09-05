@@ -1,3 +1,11 @@
+### 3.0.1 <small>(2025-09-05)</small>
+
+#### Updates
+
+* Updated swagger UI to the latest version.
+
+--------------------------------------------------------
+
 ### 3.0.0 <small>(2025-01-03)</small>
 
 #### Changes
