@@ -1,3 +1,19 @@
+### 3.0.1 <small>(2025-09-05)</small>
+
+#### Updates
+
+* Updated swagger UI to the latest version.
+
+--------------------------------------------------------
+
+### 3.0.0 <small>(2025-01-03)</small>
+
+#### Changes
+
+* Bumped requirements to Mako 11+ and PHP 8.4+
+
+--------------------------------------------------------
+
 ### 2.2.1 <small>(2024-10-29)</small>
 
 #### Fixed
