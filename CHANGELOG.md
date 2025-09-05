@@ -2,7 +2,7 @@
 
 #### Changes
 
-* Bumped requirements to Mako 10+ and PHP 8.1+
+* Bumped requirements to Mako 11+ and PHP 8.4+
 
 --------------------------------------------------------
 
