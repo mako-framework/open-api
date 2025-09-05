@@ -25,11 +25,16 @@ class Documentation
 	protected static ?string $openApiSpecPath = null;
 
 	/**
+	 * Client UI as a JSON string.
+	 */
+	protected static ?string $uiOptions = '{}';
+
+	/**
 	 * Sets the OpenApi specification path.
 	 */
 	public static function setOpenApiSpecPath(string $path): void
 	{
-		self::$openApiSpecPath = $path;
+		static::$openApiSpecPath = $path;
 	}
 
 	/**
@@ -37,7 +42,23 @@ class Documentation
 	 */
 	public static function getOpenApiSpecPath(): string
 	{
-		return self::$openApiSpecPath;
+		return static::$openApiSpecPath;
+	}
+
+	/**
+	 * Sets the UI options as a JSON string.
+	 */
+	public static function setUiOptions(string $json): void
+	{
+		static::$uiOptions = $json;
+	}
+
+	/**
+	 * Returns the UI options as a JSON string.
+	 */
+	public static function getUiOptions(): string
+	{
+		return static::$uiOptions;
 	}
 
 	/**
@@ -45,7 +66,7 @@ class Documentation
 	 */
 	public function openapi(Response $response): string
 	{
-		$openApiSpecPath = self::getOpenApiSpecPath();
+		$openApiSpecPath = static::getOpenApiSpecPath();
 
 		if (empty($openApiSpecPath) || !file_exists($openApiSpecPath)) {
 			throw new NotFoundException;
@@ -123,6 +144,7 @@ class Documentation
 	{
 		$specUrl = $uRLBuilder->toRoute('mako:openapi:spec');
 		$apiBaseUrl = $uRLBuilder->to('/');
+		$uiOptions = static::$uiOptions;
 
 		return <<<HTML
 		<!DOCTYPE html>
@@ -152,7 +174,7 @@ class Documentation
 					});
 
 					window.onload = () => {
-						const ui = SwaggerUIBundle({
+						const options = {
 							url: "$specUrl",
 							dom_id: "#swagger-ui",
 							deepLinking: true,
@@ -168,10 +190,47 @@ class Documentation
 							onComplete: () => {
 								window.ui.setServer("$apiBaseUrl");
 							}
-						});
-
+						};
+						const mergedOptions = Object.assign({}, options, $uiOptions)
+						const ui = SwaggerUIBundle(mergedOptions);
 						window.ui = ui;
 					};
+				</script>
+			</body>
+		</html>
+		HTML;
+	}
+
+	/**
+	 * Returns the Scalar UI.
+	 */
+	public function scalar(URLBuilder $uRLBuilder): string
+	{
+		$specUrl = $uRLBuilder->toRoute('mako:openapi:spec');
+		$apiBaseUrl = $uRLBuilder->to('/');
+		$uiOptions = static::$uiOptions;
+
+		return <<<HTML
+		<!doctype html>
+		<html>
+			<head>
+				<title>OpenApi - Scalar</title>
+				<meta charset="utf-8" />
+				<meta
+				name="viewport"
+				content="width=device-width, initial-scale=1" />
+			</head>
+			<body>
+				<div id="app"></div>
+				<script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
+				<script>
+					const options = {
+						url: '$specUrl',
+						servers: [{url: '$apiBaseUrl'}],
+						hideClientButton: true
+					};
+					const mergedOptions = Object.assign({}, options, $uiOptions);
+					Scalar.createApiReference('#app', mergedOptions)
 				</script>
 			</body>
 		</html>
