@@ -94,12 +94,12 @@ class Documentation
 			<head>
 				<meta charset="UTF-8">
 				<title>OpenApi - Swagger</title>
-				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.15.2/swagger-ui.min.css">
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.28.1/swagger-ui.min.css">
 			</head>
 			<body>
 				<div id="swagger-ui"></div>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.15.2/swagger-ui-bundle.min.js"></script>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.15.2/swagger-ui-standalone-preset.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.28.1/swagger-ui-bundle.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.28.1/swagger-ui-standalone-preset.min.js"></script>
 				<script type="text/javascript">
 					const SetServerPlugin = (swagger) => ({
 						rootInjects: {
