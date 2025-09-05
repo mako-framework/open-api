@@ -1,8 +1,16 @@
+### 3.1.0 <small>(2025-09-05)</small>
+
+#### New
+
+* Added Elements UI.
+
+--------------------------------------------------------
+
 ### 3.0.1 <small>(2025-09-05)</small>
 
 #### Updates
 
-* Updated swagger UI to the latest version.
+* Updated Swagger UI to the latest version.
 
 --------------------------------------------------------
 
@@ -18,7 +26,7 @@
 
 #### Fixed
 
-* Ensure that the swagger docs work if "clean URLs" are disabled.
+* Ensure that the Swagger UI docs work if "clean URLs" are disabled.
 
 --------------------------------------------------------
 
@@ -33,7 +41,7 @@
 * Added a new route registrar class:
 	- Registers routes from a cache file or at runtime from the OpenApi yaml spec.
 	- Automatically registers `/openapi/spec` route that exposes the OpenApi spec.
-	- Automatically registers `/openapi/docs` route that exposes a Swagger or Redoc UI.
+	- Automatically registers `/openapi/docs` route that exposes a Swagger UI or Redoc UI.
 
 --------------------------------------------------------
 
