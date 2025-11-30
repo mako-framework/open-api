@@ -18,11 +18,11 @@
     "require": {
         "php": ">=8.4.0",
         "zircote/swagger-php": "^4.11",
-        "cebe/php-openapi": "^1.7"
+        "cebe/php-openapi": "^1.8"
     },
     "require-dev": {
-        "mako/framework": "^11.0.0",
-        "phpstan/phpstan": "^2.0.3"
+        "mako/framework": "^11.4.0",
+        "phpstan/phpstan": "^2.1.32"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

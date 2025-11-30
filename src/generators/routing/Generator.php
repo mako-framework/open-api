@@ -105,7 +105,7 @@ abstract class Generator
 				if (isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_'])) {
 					$patterns[$parameter->name] = $this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_'];
 				}
-				elseif ($parameter->schema->format !== null && str_starts_with($parameter->schema->format, 'regex:')) {
+				elseif (!empty($parameter->schema->format) && str_starts_with($parameter->schema->format, 'regex:')) {
 					[, $regex] = explode(':', $parameter->schema->format);
 
 					$patterns[$parameter->name] = $regex;
