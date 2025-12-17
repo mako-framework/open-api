@@ -153,12 +153,13 @@ class Documentation
 			<head>
 				<meta charset="UTF-8">
 				<title>OpenApi - Swagger</title>
-				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.29.1/swagger-ui.min.css">
+				<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swagger-ui@5/dist/swagger-ui.min.css">
+				<style>.download-url-input, .download-url-button.button { display:none; }</style>
 			</head>
 			<body>
 				<div id="swagger-ui"></div>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.29.1/swagger-ui-bundle.min.js"></script>
-				<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/5.29.1/swagger-ui-standalone-preset.min.js"></script>
+				<script src="https://cdn.jsdelivr.net/npm/swagger-ui@5/dist/swagger-ui-bundle.min.js"></script>
+				<script src="https://cdn.jsdelivr.net/npm/swagger-ui@5/dist/swagger-ui-standalone-preset.min.js"></script>
 				<script type="text/javascript">
 					const SetServerPlugin = (swagger) => ({
 						rootInjects: {
@@ -186,13 +187,15 @@ class Documentation
 								SwaggerUIBundle.plugins.DownloadUrl,
 								SetServerPlugin
 							],
-							layout: "BaseLayout",
+							layout: "StandaloneLayout",
 							onComplete: () => {
 								window.ui.setServer("$apiBaseUrl");
 							}
 						};
+
 						const mergedOptions = Object.assign({}, options, $uiOptions)
 						const ui = SwaggerUIBundle(mergedOptions);
+
 						window.ui = ui;
 					};
 				</script>
