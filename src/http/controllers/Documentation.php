@@ -197,6 +197,16 @@ class Documentation
 						const ui = SwaggerUIBundle(mergedOptions);
 
 						window.ui = ui;
+
+						// Handle automatic change between dark/light mode
+
+						const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+						document.documentElement.classList.toggle('dark-mode', mq.matches);
+
+						mq.addEventListener('change', e => {
+							document.documentElement.classList.toggle('dark-mode', e.matches);
+						});
 					};
 				</script>
 			</body>
