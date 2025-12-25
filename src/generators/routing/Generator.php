@@ -13,7 +13,6 @@ use Closure;
 
 use function explode;
 use function str_replace;
-use function str_starts_with;
 use function strpos;
 
 /**
@@ -31,8 +30,17 @@ abstract class Generator
 		// String formats
 
 		'string' => [
-			'no-dot' => '[^/.]++',
-			'uuid'   => '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}',
+			'no-dot'    => '[^/.]++',
+			'uuid'      => '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}',
+			'date'      => '(19|20)\d\d-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])',
+			'date-time' => '((?:(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2}(?:\.\d+)?))(Z|[\+-]\d{2}:\d{2})?)',
+			'byte'      => '(?:[A-Za-z0-9+\/]{4})*(?:[A-Za-z0-9+\/]{2}==|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{4})',
+		],
+
+		// Bolean formats
+
+		'boolean' => [
+			'_' => 'true|false',
 		],
 
 		// Integer formats
@@ -102,13 +110,11 @@ abstract class Generator
 
 		foreach ($parameters as $parameter) {
 			if ($parameter->in === 'path') {
-				if (isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_'])) {
-					$patterns[$parameter->name] = $this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_'];
+				if ($parameter->schema->type === 'string' && !empty($parameter->schema->pattern)) {
+					$patterns[$parameter->name] = $parameter->schema->pattern;
 				}
-				elseif (!empty($parameter->schema->format) && str_starts_with($parameter->schema->format, 'regex:')) {
-					[, $regex] = explode(':', $parameter->schema->format);
-
-					$patterns[$parameter->name] = $regex;
+				elseif (isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_'])) {
+					$patterns[$parameter->name] = $this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_'];
 				}
 			}
 		}

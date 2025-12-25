@@ -1,3 +1,21 @@
+### 4.0.0 <small>(2025-??-??)</small>
+
+#### New
+
+* Added support for more string formats when generating routes:
+	- date
+	- date-time
+	- byte
+* Added support for custom string patterns using the `pattern` keyword.
+* Automatic dark/light mode for the Swagger UI based on system settings.
+
+#### Changes
+
+* Bumped requirements to Mako 12+ and PHP 8.5+
+* Dropped support for the non-official `regex:...` format (replaced by `pattern`).
+
+--------------------------------------------------------
+
 ### 3.1.0 <small>(2025-09-05)</small>
 
 #### New
