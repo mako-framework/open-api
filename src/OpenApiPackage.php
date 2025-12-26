@@ -24,8 +24,7 @@ class OpenApiPackage extends Package
 	/**
 	 * {@inheritDoc}
 	 */
-	protected array $commands =
-	[
+	protected array $commands = [
 		'open-api:generate-spec'   => GenerateSpec::class,
 		'open-api:generate-routes' => GenerateRoutes::class,
 	];
