@@ -8,8 +8,10 @@
 namespace mako\openapi\generators\spec;
 
 use mako\file\FileSystem;
+use mako\openapi\generators\spec\processors\OperationId;
 use OpenApi\Annotations\OpenApi;
 use OpenApi\Generator as OpenApiGenerator;
+use OpenApi\Processors\OperationId as DefaultOperationId;
 use OpenApi\Util;
 use Symfony\Component\Finder\Finder;
 
@@ -24,8 +26,8 @@ class Generator
 	public function __construct(
 		protected FileSystem $fileSystem,
 		protected string $outputFile,
-		protected $directory,
-		protected $exclude = null,
+		protected array $directory,
+		protected ?array $exclude = null,
 		protected ?string $pattern = null,
 		protected string $version = OpenApi::DEFAULT_VERSION
 	) {
@@ -42,9 +44,15 @@ class Generator
 	/**
 	 * Returns a OpenApi spec genrator.
 	 */
-	protected function getGenerator(): ?OpenApi
+	protected function getSpec(): ?OpenApi
 	{
-		return OpenApiGenerator::scan($this->getFinder(), ['version' => $this->version]);
+		$generator = (new OpenApiGenerator)->setVersion($this->version);
+
+		$generator->getProcessorPipeline()
+		->remove(DefaultOperationId::class)
+		->add(new OperationId);
+
+		return $generator->generate($this->getFinder());
 	}
 
 	/**
@@ -52,6 +60,6 @@ class Generator
 	 */
 	public function generate(): void
 	{
-		$this->fileSystem->put($this->outputFile, $this->getGenerator()->toYaml());
+		$this->fileSystem->put($this->outputFile, $this->getSpec()->toYaml());
 	}
 }

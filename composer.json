@@ -17,7 +17,7 @@
     },
     "require": {
         "php": ">=8.5.0",
-        "zircote/swagger-php": "^4.11",
+        "zircote/swagger-php": "^5.7",
         "cebe/php-openapi": "^1.8"
     },
     "require-dev": {

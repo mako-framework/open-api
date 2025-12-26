@@ -60,7 +60,7 @@ class GenerateSpec extends Command
 				$controllers = "{$this->app->getPath()}/http/controllers";
 			}
 
-			return [$controllers, "{$this->app->getPath()}'/models"];
+			return [$controllers, "{$this->app->getPath()}/models"];
 		}
 
 		$root = dirname($this->app->getPath());
@@ -82,7 +82,7 @@ class GenerateSpec extends Command
 		$root = dirname($this->app->getPath());
 
 		if (empty($path)) {
-			return "{$root}/http/routing";
+			return "{$root}/app/http/routing";
 		}
 
 		return strpos($path, DIRECTORY_SEPARATOR) === 0 ? $path : "{$root}/{$path}";
@@ -93,7 +93,7 @@ class GenerateSpec extends Command
 	 */
 	public function execute(string $filename = 'openapi', ?array $scan = null, ?array $exclude = null, ?string $pattern = null, ?string $output = null, string $version = OpenApi::DEFAULT_VERSION): void
 	{
-		$output = "{$this->getOutputPath($output)}/{$filename}.yml";
+		$output = "{$this->getOutputPath($output)}/{$filename}.yaml";
 
 		$generator = new SpecGenerator(
 			$this->fileSystem,

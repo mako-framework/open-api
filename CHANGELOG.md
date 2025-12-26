@@ -8,11 +8,13 @@
 	- byte
 * Added support for custom string patterns using the `pattern` keyword.
 * Automatic dark/light mode for the Swagger UI based on system settings.
+* Improved spec generation.
 
 #### Changes
 
 * Bumped requirements to Mako 12+ and PHP 8.5+
 * Dropped support for the non-official `regex:...` format (replaced by `pattern`).
+* Updated dependencies.
 
 --------------------------------------------------------
 
