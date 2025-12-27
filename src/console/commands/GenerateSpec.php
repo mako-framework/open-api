@@ -106,6 +106,8 @@ class GenerateSpec extends Command
 
 		$generator->generate();
 
-		$this->write("Successfully wrote OpenApi specification to [ {$output} ].");
+		$this->nl();
+		$this->write("Successfully wrote OpenApi specification to \"<yellow>{$output}</yellow>\".");
+		$this->nl();
 	}
 }

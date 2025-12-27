@@ -17,7 +17,6 @@ use mako\reactor\attributes\CommandArguments;
 use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 
-use function dirname;
 use function pathinfo;
 use function rtrim;
 
@@ -49,7 +48,7 @@ class GenerateRoutes extends Command
 	 */
 	protected function getInputFilePath(?string $input): string
 	{
-		return $input ?? dirname($this->app->getPath()) . '/openapi.yml';
+		return $input ?? $this->app->getPath() . '/http/routing/openapi.yaml';
 	}
 
 	/**
@@ -76,7 +75,9 @@ class GenerateRoutes extends Command
 
 		(new Cached($this->fileSystem, $routesFile))->generateFromYamlFile($input);
 
-		$this->write("Successfully wrote routes to [ {$routesFile} ].");
+		$this->nl();
+		$this->write("Successfully wrote routes to \"<yellow>{$routesFile}</yellow>\".");
+		$this->nl();
 
 		return static::STATUS_SUCCESS;
 	}
