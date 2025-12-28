@@ -51,7 +51,7 @@ You can build an OpenAPI specification using a tool such as [Apicurito](https://
 
 Here is a basic example of documenting API routes using attributes::
 
-```
+```php
 <?php
 
 namespace app\http\controllers;
@@ -81,7 +81,7 @@ If you want to generate a specification file from your documentation, you can do
 
 Below is an example of the generated specification:
 
-```
+```yaml
 openapi: 3.0.0
 info:
   title: 'Example API'
