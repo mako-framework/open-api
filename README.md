@@ -87,7 +87,7 @@ info:
   title: 'Example API'
   version: 1.0.0
 paths:
-  /openapispec:
+  /:
     get:
       operationId: app\http\controllers\OpenApiExample
       responses:
