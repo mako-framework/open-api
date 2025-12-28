@@ -49,8 +49,52 @@ Registrar::register(
 
 You can build an OpenAPI specification using a tool such as [Apicurito](https://www.apicur.io/apicurito/pwa/) or by documenting your code using PHP attributes. For details on the available syntax, see the [zircote/swagger-php](https://github.com/zircote/swagger-php) documentation.
 
+Here is a basic example of documenting API routes using attributes::
+
+```
+<?php
+
+namespace app\http\controllers;
+
+use OpenApi\Attributes as OA;
+
+#[OA\Info(
+	title: 'Example API',
+	version: '1.0.0'
+)]
+class OpenApiExample
+{
+	#[OA\Get(
+        path: '/',
+        responses: [
+            new OA\Response(response: 200, description: 'Displays a greeting to the user.'),
+        ]
+    )]
+	public function __invoke(): string
+	{
+		return 'Welcome to the OpenApi example!';
+	}
+}
+```
+
 If you want to generate a specification file from your documentation, you can do so by running the `open-api:generate-spec` command.
 
-To generate a cached route file for production, run the `open-api:generate-routes` command.
+Below is an example of the generated specification:
+
+```
+openapi: 3.0.0
+info:
+  title: 'Example API'
+  version: 1.0.0
+paths:
+  /openapispec:
+    get:
+      operationId: app\http\controllers\OpenApiExample
+      responses:
+        '200':
+          description: 'Displays a greeting to the user.'
+```
 
 > Note: If you manually write your OpenAPI specification, you must set the `operationId` parameter to the fully qualified method name (for example, app\controllers\Index::welcome) of the controller action in order for the route generator to work.
+
+To generate a cached route file for production, run the `open-api:generate-routes` command.
