@@ -10,6 +10,7 @@ namespace mako\openapi\http\routing;
 use mako\http\routing\Routes;
 use mako\openapi\generators\routing\Runtime;
 use mako\openapi\http\controllers\Documentation;
+use mako\openapi\Ui;
 
 use function file_exists;
 
@@ -27,7 +28,7 @@ class Registrar
 		string $openApiSpec,
 		?string $specPath = '/openapi/spec',
 		?string $docsPath = '/openapi/docs',
-		string $ui = 'swagger',
+		Ui $ui = Ui::SWAGGER,
 		string $uiOptions = '{}'
 	): void {
 		// Include the cached routes if they exist. Otherwise we'll generate them at runtime.
@@ -49,7 +50,7 @@ class Registrar
 			if ($docsPath !== null) {
 				Documentation::setUiOptions($uiOptions);
 
-				$routes->get($docsPath, [Documentation::class, $ui], 'mako:openapi:docs');
+				$routes->get($docsPath, [Documentation::class, $ui->value], 'mako:openapi:docs');
 			}
 		}
 	}

@@ -15,6 +15,7 @@
 * Bumped requirements to Mako 12+ and PHP 8.5+
 * Dropped support for the non-official `regex:...` format (replaced by `pattern`).
 * Updated dependencies.
+* The UI is now specified using the `Ui` enum.
 
 --------------------------------------------------------
 
