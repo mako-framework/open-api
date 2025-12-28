@@ -97,4 +97,4 @@ paths:
 
 > Note: If you manually write your OpenAPI specification, you must set the `operationId` parameter to the fully qualified method name (for example, app\controllers\Index::welcome) of the controller action in order for the route generator to work.
 
-To generate a cached route file for production, run the `open-api:generate-routes` command.
+When running in production, it is strongly recommended to generate a cached route file for maximum performance. To do so, run the `open-api:generate-routes` command.
