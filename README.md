@@ -41,7 +41,7 @@ use mako\openapi\http\routing\Registrar;
 Registrar::register(
 	$routes,
 	cachedRoutes: __DIR__ . '/openapi.php',
-	openApiSpec: __DIR__ . '/openapi.yml',
+	openApiSpec: __DIR__ . '/openapi.yaml',
 );
 ```
 
