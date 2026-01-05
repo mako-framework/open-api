@@ -50,7 +50,11 @@ class GenerateRoutes extends Command
 	protected function getInputFilePath(?string $input): string
 	{
 		if ($input) {
-			return realpath($input);
+			if (($realPath = realpath($input)) !== false) {
+				return $realPath;
+			}
+
+			return $input;
 		}
 
 		return $this->app->getPath() . '/http/routing/openapi.yaml';
