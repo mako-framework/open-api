@@ -1,3 +1,11 @@
+### 4.0.1 <small>(2026-01-05)</small>
+
+#### Bugfixes
+
+* Fixed bug when generating cached routes with a relative path to the spec file.
+
+--------------------------------------------------------
+
 ### 4.0.0 <small>(2026-01-05)</small>
 
 #### New
@@ -46,7 +54,7 @@
 
 ### 2.2.1 <small>(2024-10-29)</small>
 
-#### Fixed
+#### Bugfixes
 
 * Ensure that the Swagger UI docs work if "clean URLs" are disabled.
 
@@ -73,7 +81,7 @@
 
 * Now possible to specify the OpenApi version when generating the spec (3.0.0 or 3.1.0).
 
-#### Fixed
+#### Bugfixes
 
 * The spec generator now supports the new Mako 10 directory structure as well as the legacy structure.
 
@@ -89,7 +97,7 @@
 
 ### 1.2.4 <small>(2023-04-18)</small>
 
-#### Fixed
+#### Bugfixes
 
 * A format is no longer required for integers.
 
@@ -97,7 +105,7 @@
 
 ### 1.2.3 <small>(2023-02-15)</small>
 
-#### Fixed
+#### Bugfixes
 
 * It is now possible to specify the output path of the generated route file.
 
@@ -105,7 +113,7 @@
 
 ### 1.2.2 <small>(2023-01-31)</small>
 
-#### Fixed
+#### Bugfixes
 
 * Parameters are now supported on both the path level and the operation level.
 
@@ -113,7 +121,7 @@
 
 ### 1.2.1 <small>(2023-01-27)</small>
 
-#### Fixed
+#### Bugfixes
 
 * The `OpenApiTrait::getRouteName()` method now supports invokable classes.
 
@@ -130,7 +138,7 @@
 
 ### 1.1.1 <small>(2023-01-26)</small>
 
-#### Fixed
+#### Bugfixes
 
 * Only base route parameter patterns on path parameters.
 
@@ -144,7 +152,7 @@
 	- `OpenApiTrait::getRouteName()`
 * Added experimental support for route parameter patterns based on parameter formats.
 
-#### Fixed
+#### Bugfixes
 
 * Path parameters are parsed on path level instead of on request method level.
 

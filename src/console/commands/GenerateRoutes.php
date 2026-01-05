@@ -18,6 +18,7 @@ use mako\reactor\attributes\CommandDescription;
 use mako\reactor\Command;
 
 use function pathinfo;
+use function realpath;
 use function rtrim;
 
 /**
@@ -48,7 +49,11 @@ class GenerateRoutes extends Command
 	 */
 	protected function getInputFilePath(?string $input): string
 	{
-		return $input ?? $this->app->getPath() . '/http/routing/openapi.yaml';
+		if ($input) {
+			return realpath($input);
+		}
+
+		return $this->app->getPath() . '/http/routing/openapi.yaml';
 	}
 
 	/**
