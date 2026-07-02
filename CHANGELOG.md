@@ -1,3 +1,11 @@
+### 4.1.0 <small>(2026-07-??)</small>
+
+#### Bugfixes
+
+* Removed dependency on `cebe/php-openapi`.
+
+--------------------------------------------------------
+
 ### 4.0.1 <small>(2026-01-05)</small>
 
 #### Bugfixes

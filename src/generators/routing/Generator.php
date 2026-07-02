@@ -7,11 +7,14 @@
 
 namespace mako\openapi\generators\routing;
 
-use cebe\openapi\Reader;
-use cebe\openapi\SpecObjectInterface;
 use Closure;
+use mako\openapi\parser\Operation;
+use mako\openapi\parser\Parameter;
+use mako\openapi\parser\Parser;
+use Symfony\Component\Yaml\Yaml;
 
 use function explode;
+use function in_array;
 use function str_replace;
 use function strpos;
 
@@ -60,22 +63,20 @@ abstract class Generator
 	];
 
 	/**
-	 * Merges path and operation parameters.
+	 * Returns the route path.
 	 *
-	 * @param \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $pathParameters
-	 * @param \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $operationParameters
+	 * @param string      $path
+	 * @param Parameter[] $parameters
 	 */
-	public function mergeParameters(array $pathParameters, array $operationParameters): array
+	protected function getRoutePath(string $path, array $parameters): string
 	{
-		$merged = [];
-
-		foreach ([$pathParameters, $operationParameters] as $parameters) {
-			foreach ($parameters as $parameter) {
-				$merged[$parameter->name] = $parameter;
+		foreach ($parameters as $parameter) {
+			if ($parameter->required === false) {
+				$path = str_replace("{{$parameter->name}}", "{{$parameter->name}}?", $path);
 			}
 		}
 
-		return $merged;
+		return $path;
 	}
 
 	/**
@@ -91,38 +92,27 @@ abstract class Generator
 	}
 
 	/**
-	 * Returns the route path.
-	 *
-	 * @param string                                                        $path
-	 * @param \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $parameters
-	 */
-	protected function getRoutePath(string $path, array $parameters): string
-	{
-		foreach ($parameters as $parameter) {
-			if ($parameter->in === 'path' && $parameter->required === false) {
-				$path = str_replace("{{$parameter->name}}", "{{$parameter->name}}?", $path);
-			}
-		}
-
-		return $path;
-	}
-
-	/**
 	 * Returns route parameter patterns.
 	 *
-	 * @param \cebe\openapi\spec\Parameter[]|\cebe\openapi\spec\Reference[] $parameters
+	 * @param Parameter[] $parameters
 	 */
 	protected function getRoutePatterns(array $parameters): array
 	{
 		$patterns = [];
 
 		foreach ($parameters as $parameter) {
-			if ($parameter->in === 'path') {
-				if ($parameter->schema->type === 'string' && !empty($parameter->schema->pattern)) {
-					$patterns[$parameter->name] = $parameter->schema->pattern;
+			if (isset($parameter->schema['type'])) {
+				$type = $parameter->schema['type'];
+
+				if ($type === 'string' && !empty($parameter->schema['pattern'])) {
+					$patterns[$parameter->name] = $parameter->schema['pattern'];
 				}
-				elseif (isset($this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_'])) {
-					$patterns[$parameter->name] = $this->parameterPatterns[$parameter->schema->type][$parameter->schema->format ?? '_'];
+				else {
+					$format = $parameter->schema['format'] ?? '_';
+
+					if (isset($this->parameterPatterns[$type][$format])) {
+						$patterns[$parameter->name] = $this->parameterPatterns[$type][$format];
+					}
 				}
 			}
 		}
@@ -138,26 +128,24 @@ abstract class Generator
 	/**
 	 * Generates routes.
 	 *
-	 * @param \cebe\openapi\spec\OpenApi|SpecObjectInterface $openApi OpenApi object instance
+	 * @param Operation[] $spec
 	 */
-	protected function generateRoutes(SpecObjectInterface $openApi): void
+	protected function generateRoutes(array $spec): void
 	{
 		$methods = ['get', 'post', 'put', 'patch', 'delete'];
 
-		foreach ($openApi->paths as $path => $definition) {
-			foreach ($methods as $method) {
-				if ($definition->{$method} !== null) {
-					$parameters = $this->mergeParameters($definition->parameters, $definition->{$method}->parameters);
-
-					$this->registerRoute(
-						$method,
-						$this->getRoutePath($path, $parameters),
-						$this->getRouteAction($definition->{$method}->operationId),
-						$definition->{$method}->operationId,
-						$this->getRoutePatterns($parameters),
-					);
-				}
+		foreach ($spec as $operation) {
+			if (!in_array($operation->method, $methods, true)) {
+				continue;
 			}
+
+			$this->registerRoute(
+				$operation->method,
+				$this->getRoutePath($operation->path, $operation->pathParameters),
+				$this->getRouteAction($operation->operationId),
+				$operation->operationId,
+				$this->getRoutePatterns($operation->pathParameters)
+			);
 		}
 	}
 
@@ -166,7 +154,7 @@ abstract class Generator
 	 */
 	public function generateFromYamlFile(string $fileName): void
 	{
-		$this->generateRoutes(Reader::readFromYamlFile($fileName));
+		$this->generateRoutes((new Parser(Yaml::parseFile($fileName)))->parse());
 	}
 
 	/**
@@ -174,6 +162,6 @@ abstract class Generator
 	 */
 	public function generateFromYaml(string $yaml): void
 	{
-		$this->generateRoutes(Reader::readFromYaml($yaml));
+		$this->generateRoutes((new Parser(Yaml::parse($yaml)))->parse());
 	}
 }
