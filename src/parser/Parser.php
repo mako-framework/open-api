@@ -35,7 +35,7 @@ class Parser
 	/**
 	 * Parameter buckets.
 	 */
-	protected const PARAM_BUCKETS = ['path', 'query'];
+	protected const PARAM_BUCKETS = ['path', 'query', 'cookie', 'header'];
 
 	/**
 	 * Reference resolver.
@@ -113,6 +113,8 @@ class Parser
 
 		$path = [];
 		$query = [];
+		$cookie = [];
+		$header = [];
 
 		foreach ($indexed as $param) {
 			$object = new Parameter(
@@ -121,15 +123,10 @@ class Parser
 				$param['schema']
 			);
 
-			if ($param['in'] === 'path') {
-				$path[] = $object;
-			}
-			elseif ($param['in'] === 'query') {
-				$query[] = $object;
-			}
+			${$param['in']}[] = $object;
 		}
 
-		return [$path, $query];
+		return [$path, $query, $cookie, $header];
 	}
 
 	/**
@@ -153,7 +150,7 @@ class Parser
 
 				$methodSpec = $pathSpec[$method];
 
-				[$pathParameters, $queryParameters] = $this->parseParameters(
+				[$pathParameters, $queryParameters, $cookies, $headers] = $this->parseParameters(
 					$pathSpec['parameters'] ?? [],
 					$methodSpec['parameters'] ?? []
 				);
@@ -163,7 +160,9 @@ class Parser
 					$method,
 					$methodSpec['operationId'] ?? throw new ParserException("Missing required 'operationId' for {$method}:{$path}."),
 					$pathParameters,
-					$queryParameters
+					$queryParameters,
+					$cookies,
+					$headers
 				);
 			}
 		}
