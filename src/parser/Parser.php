@@ -35,7 +35,12 @@ class Parser
 	/**
 	 * Parameter buckets.
 	 */
-	protected const PARAM_BUCKETS = ['path', 'query', 'cookie', 'header'];
+	protected const PARAMETER_BUCKETS = [
+		'cookie',
+		'header',
+		'path',
+		'query',
+	];
 
 	/**
 	 * Reference resolver.
@@ -95,7 +100,7 @@ class Parser
 
 				$param = $this->normalizeParameter($param);
 
-				if (!in_array($param['in'], self::PARAM_BUCKETS, true)) {
+				if (!in_array($param['in'], self::PARAMETER_BUCKETS, true)) {
 					continue;
 				}
 
