@@ -13,6 +13,7 @@ use function array_pop;
 use function explode;
 use function in_array;
 use function is_array;
+use function sprintf;
 use function str_starts_with;
 use function substr;
 
@@ -50,7 +51,7 @@ final class ReferenceResolver
 
         foreach ($path as $segment) {
             if (!isset($node[$segment])) {
-                throw new ParserException("Invalid ref: {$ref}");
+                throw new ParserException(sprintf('Invalid reference [ %s ]. The reference does not exist.', $ref));
             }
 
             $node = $node[$segment];
@@ -86,13 +87,13 @@ final class ReferenceResolver
 		// Check if reference is local
 
         if (!str_starts_with($ref, '#/')) {
-            throw new ParserException("Only local refs supported: {$ref}.");
+            throw new ParserException(sprintf('Invalid reference [ %s ]. Only local references supported.', $ref));
         }
 
         // Prevent circular references
 
         if (in_array($ref, $this->stack, true)) {
-            throw new ParserException("Circular reference detected: {$ref}.");
+            throw new ParserException(sprintf('Invalid reference [ %s ]. Circular reference detected.', $ref));
         }
 
         // Return from cache if previously resolved

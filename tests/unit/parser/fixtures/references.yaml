@@ -1,0 +1,25 @@
+openapi: 3.0.0
+info:
+  title: 'Example API'
+  version: 1.0.0
+paths:
+  '/foobar/{id}':
+    parameters:
+      - $ref: '#/components/parameters/IdParam'
+    get:
+      summary: Returns current user information.
+      operationId: 'app\http\controllers\user\FoobarGet'
+      responses:
+        '200':
+components:
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        $ref: '#/components/schemas/IdSchema'
+  schemas:
+    IdSchema:
+      type: string
+      format: foobar

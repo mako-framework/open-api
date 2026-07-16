@@ -1,0 +1,31 @@
+openapi: 3.0.0
+info:
+  title: 'Example API'
+  version: 1.0.0
+paths:
+  '/foobar/{id}':
+    parameters:
+      - $ref: '#/components/parameters/IdParam'
+      - $ref: '#/components/parameters/CircularRefParam'
+    get:
+      summary: Returns current user information.
+      operationId: 'app\http\controllers\user\FoobarGet'
+      responses:
+        '200':
+components:
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        $ref: './external.yaml#/components/schemas/IdSchema' # non-local reference
+    CircularRefParam:
+      name: self
+      in: query
+      required: false
+      schema:
+        $ref: '#/components/schemas/CircularRefSchema'
+  schemas:
+    CircularRefSchema:
+      $ref: '#/components/schemas/CircularRefSchema' # self-referencing reference

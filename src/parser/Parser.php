@@ -163,7 +163,7 @@ class Parser
 				$operations[] = new Operation(
 					$path,
 					$method,
-					$methodSpec['operationId'] ?? throw new ParserException("Missing required 'operationId' for {$method}:{$path}."),
+					$methodSpec['operationId'] ?? throw new ParserException("Missing required 'operationId' for [ {$method}:{$path} ]."),
 					$pathParameters,
 					$queryParameters,
 					$cookies,
