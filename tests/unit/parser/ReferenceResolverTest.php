@@ -83,4 +83,42 @@ class ReferenceResolverTest extends TestCase
 
 		$referenceResolver->resolve('./external.yaml#/components/schemas/IdSchema');
 	}
+
+	/**
+	 *
+	 */
+	public function testFailedResolutionDoesNotLeaveReferenceOnStack(): void
+	{
+		$referenceResolver = new ReferenceResolver(Yaml::parseFile(__DIR__ . '/fixtures/broken-reference.yaml'));
+
+		// First resolution fails because DoesNotExist is missing
+
+		try {
+			$referenceResolver->resolve('#/components/schemas/DoesNotExist');
+
+			$this->fail('Expected exception was not thrown.');
+		}
+		catch (ParserException $e) {
+			$this->assertSame(
+				'Invalid reference [ #/components/schemas/DoesNotExist ]. The reference does not exist.',
+				$e->getMessage()
+			);
+		}
+
+		// Second resolution should fail for the exact same reason.
+		// Without the finally/array_pop cleanup it would instead
+		// report a circular reference on DoesNotExist.
+
+		try {
+			$referenceResolver->resolve('#/components/schemas/DoesNotExist');
+
+			$this->fail('Expected exception was not thrown.');
+		}
+		catch (ParserException $e) {
+			$this->assertSame(
+				'Invalid reference [ #/components/schemas/DoesNotExist ]. The reference does not exist.',
+				$e->getMessage()
+			);
+		}
+	}
 }
