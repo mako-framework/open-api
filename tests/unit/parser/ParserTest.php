@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright Frederic G. Østby
+ * @license   http://www.makoframework.com/license
+ */
+
 namespace mako\openapi\tests\unit\parser;
 
 use mako\openapi\parser\exceptions\ParserException;

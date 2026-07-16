@@ -106,12 +106,15 @@ final class ReferenceResolver
 
         $this->stack[] = $ref;
 
-        $node = $this->traverse($ref);
+		try {
+			$node = $this->traverse($ref);
 
-        $node = $this->resolveNested($node);
+        	$node = $this->resolveNested($node);
 
-        array_pop($this->stack);
-
-        return $this->cache[$ref] = $node;
+			return $this->cache[$ref] = $node;
+		}
+		finally {
+			array_pop($this->stack);
+		}
     }
 }
