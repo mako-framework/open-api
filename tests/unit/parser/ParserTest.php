@@ -73,7 +73,7 @@ class ParserTest extends TestCase
 		$this->assertSame('app\http\controllers\ArticlesGet', $parsed[0]->operationId);
 
 		$this->assertCount(2, $parsed[0]->pathParameters);
-		$this->assertCount(1, $parsed[0]->queryParameters);
+		$this->assertCount(3, $parsed[0]->queryParameters);
 		$this->assertCount(0, $parsed[0]->cookies);
 		$this->assertCount(0, $parsed[0]->headers);
 
@@ -90,9 +90,17 @@ class ParserTest extends TestCase
 
 		// Query parameters
 
-		$this->assertSame('preview', $parsed[0]->queryParameters[0]->name);
+		$this->assertSame('q1', $parsed[0]->queryParameters[0]->name);
 		$this->assertFalse($parsed[0]->queryParameters[0]->required);
 		$this->assertSame('boolean', $parsed[0]->queryParameters[0]->schema['type']);
+
+		$this->assertSame('q2', $parsed[0]->queryParameters[1]->name);
+		$this->assertTrue($parsed[0]->queryParameters[1]->required);
+		$this->assertSame('boolean', $parsed[0]->queryParameters[1]->schema['type']);
+
+		$this->assertSame('q3', $parsed[0]->queryParameters[2]->name);
+		$this->assertFalse($parsed[0]->queryParameters[2]->required);
+		$this->assertSame('boolean', $parsed[0]->queryParameters[2]->schema['type']);
 	}
 
 	/**

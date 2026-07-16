@@ -24,9 +24,18 @@ paths:
           required: false
           schema:
             type: string
-        - name: preview
+        - name: q1
           in: query
           required: false
+          schema:
+              type: boolean
+        - name: q2
+          in: query
+          required: true
+          schema:
+              type: boolean
+        - name: q3
+          in: query
           schema:
               type: boolean
       responses:
