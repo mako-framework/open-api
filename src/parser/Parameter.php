@@ -12,6 +12,9 @@ namespace mako\openapi\parser;
  */
 readonly class Parameter
 {
+	/**
+	 * Constructor.
+	 */
 	public function __construct(
 		public string $name,
 		public bool $required,
