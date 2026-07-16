@@ -1,0 +1,28 @@
+openapi: 3.0.0
+info:
+  title: 'Example API'
+  version: 1.0.0
+paths:
+  /:
+    get:
+      operationId: app\http\controllers\RootGet
+      responses:
+        '200':
+          description: 'root:get'
+    post:
+      operationId: app\http\controllers\RootPost
+      responses:
+        '200':
+          description: 'root:post'
+  /foo:
+    get:
+      operationId: app\http\controllers\FooGet
+      responses:
+        '200':
+          description: 'foo:get'
+    post:
+      operationId: app\http\controllers\FooPost
+      responses:
+        '200':
+          description: 'foo:post'
+

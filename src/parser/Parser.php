@@ -28,7 +28,7 @@ class Parser
 		'patch',
 		'post',
 		'put',
-		//'query',
+		'query',
 		'trace',
 	];
 

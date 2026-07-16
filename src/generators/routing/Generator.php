@@ -24,6 +24,18 @@ use function strpos;
 abstract class Generator
 {
 	/**
+	 * Route methods.
+	 */
+	protected const array ROUTE_METHODS = [
+		'delete',
+		'get',
+		'patch',
+		'post',
+		'put',
+		'query',
+	];
+
+	/**
 	 * Parameter patterns.
 	 *
 	 * @var string[][]
@@ -134,10 +146,8 @@ abstract class Generator
 	 */
 	protected function generateRoutes(array $spec): void
 	{
-		$methods = ['get', 'post', 'put', 'patch', 'delete'];
-
 		foreach ($spec as $operation) {
-			if (!in_array($operation->method, $methods, true)) {
+			if (!in_array($operation->method, static::ROUTE_METHODS, true)) {
 				continue;
 			}
 
