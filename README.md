@@ -1,5 +1,6 @@
 # OpenApi
 
+[![Tests](https://github.com/mako-framework/open-api/actions/workflows/tests.yml/badge.svg)](https://github.com/mako-framework/open-api/actions/workflows/tests.yml)
 [![Static analysis](https://github.com/mako-framework/open-api/actions/workflows/static-analysis.yml/badge.svg)](https://github.com/mako-framework/open-api/actions/workflows/static-analysis.yml)
 
 The `mako/open-api` package allows you to generate an [OpenApi](https://www.openapis.org) specification by documenting your code using PHP [attributes](https://www.php.net/manual/en/language.attributes.php), and to generate routes from an OpenAPI specification.

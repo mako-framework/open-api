@@ -15,14 +15,21 @@
             "mako\\openapi\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "mako\\openapi\\tests\\": "tests"
+        }
+    },
     "require": {
         "php": ">=8.5.0",
         "zircote/swagger-php": "^5.7",
-        "cebe/php-openapi": "^1.8"
+        "symfony/yaml": "^8.1"
     },
     "require-dev": {
         "mako/framework": "^12.0.0",
-        "phpstan/phpstan": "^2.1.33"
+        "mockery/mockery": "^1.6.12",
+        "phpstan/phpstan": "^2.1.33",
+        "phpunit/phpunit": "^13.2"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -32,8 +39,10 @@
         }
     },
     "scripts": {
+        "phpunit": "phpunit --display-incomplete --display-skipped --display-deprecations --display-errors --display-notices --display-warning --display-phpunit-deprecations",
         "phpstan": "phpstan analyze src --no-progress --memory-limit=-1 -c phpstan.neon",
         "qa": [
+            "@phpunit",
             "@phpstan"
         ]
     }
