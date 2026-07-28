@@ -164,7 +164,7 @@ class Documentation
 					const SetServerPlugin = (swagger) => ({
 						rootInjects: {
 							setServer: (server) => {
-								const spec = swagger.getState().toJSON().spec.json;
+								const spec = swagger.specSelectors.specJson().toJS();
 								if (!spec.servers) {
 									const servers = [{url: server, description: 'Current server'}];
 									const newSpec = Object.assign({}, spec, { servers });

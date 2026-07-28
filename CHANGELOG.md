@@ -1,3 +1,11 @@
+### 4.1.1 <small>(2026-07-28)</small>
+
+#### Bugfixes
+
+* Fixed Swagger UI server selector bug caused by non-documented breaking change.
+
+--------------------------------------------------------
+
 ### 4.1.0 <small>(2026-07-17)</small>
 
 #### Changes
