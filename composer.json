@@ -22,20 +22,20 @@
     },
     "require": {
         "php": ">=8.5.0",
-        "zircote/swagger-php": "^5.7",
+        "mako/framework": "^12.0|^13.0@dev",
+        "zircote/swagger-php": "^5.8",
         "symfony/yaml": "^8.1"
     },
     "require-dev": {
-        "mako/framework": "^12.0.0",
-        "mockery/mockery": "^1.6.12",
-        "phpstan/phpstan": "^2.1.33",
-        "phpunit/phpunit": "^13.2"
+        "mockery/mockery": "^1.6.15",
+        "phpstan/phpstan": "^2.3.1",
+        "phpunit/phpunit": "^13.4"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {
         "branch-alias": {
-            "dev-master": "4.2-dev"
+            "dev-master": "5.0-dev"
         }
     },
     "scripts": {

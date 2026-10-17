@@ -14,7 +14,7 @@ In addition, the package can render interactive API documentation for your OpenA
 
 ## Requirements
 
-Mako 12.0 or greater.
+* Mako ^12.0|^13.0
 
 ## Installation
 
